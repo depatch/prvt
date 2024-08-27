@@ -1,7 +1,12 @@
-import ConnectWallet from "./ConnectWallet";
+import ConnectWallet from "./ConnectWallet"; // Keep the import statement intact
 
-export default Header() {
+const Header = () => {
   return (
-    
-  )
-}
+    <div>
+      <h1>Welcome to My App</h1>
+      <ConnectWallet />
+    </div>
+  );
+};
+
+export default Header; // Correct export statement

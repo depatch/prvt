@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
-
-const ConnectWallet = dynamic(() => import('./ConnectWallet'), { ssr: false })
+import { ConnectWalletButton } from './ConnectWalletButton' // Import the new button
 
 export function Header() {
     return (
@@ -11,8 +10,7 @@ export function Header() {
                 <span className="text-lg">Private</span>
             </div>
             <div className="flex items-center">
-                <button className="bg-[#222] px-4 py-2 rounded-full text-sm mr-4">Launch app</button>
-                <ConnectWallet />
+                <ConnectWalletButton /> {/* Use the new button here */}
             </div>
         </header>
     )

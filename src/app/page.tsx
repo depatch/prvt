@@ -26,9 +26,6 @@ export default function Home() {
                   <span key={tag} className="bg-[#222] px-3 py-1 rounded-full text-sm">{tag}</span>
                 ))}
               </div>
-              <Link href="/signup" className="bg-white text-black font-bold py-3 px-6 rounded-full inline-block w-max">
-                Launch app
-              </Link>
               <div className="mt-12">
                 <div className="flex items-center mb-2">
                   {[...Array(5)].map((_, i) => (

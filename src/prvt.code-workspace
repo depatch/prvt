@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "prvt",
+			"path": ".."
+		},
+		{
+			"name": "designs",
+			"path": "../../../Desktop/designs"
+		}
+	],
+	"settings": {}
+}

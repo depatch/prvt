@@ -2,11 +2,11 @@ import ConnectWallet from "./ConnectWallet"; // Keep the import statement intact
 
 const Header = () => {
   return (
-    <div>
-      <h1>Welcome to My App</h1>
+    <header className="w-full flex justify-between items-center p-4">
+      <h1 className="text-2xl font-bold">Welcome to My App</h1>
       <ConnectWallet />
-    </div>
+    </header>
   );
 };
 
-export default Header; // Correct export statement
+export default Header; // Correct export statement 

@@ -1,5 +1,5 @@
 {
-  "name": "mpc-core-kit-nextjs-quick-start",
+  "name": "prvt",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,10 +10,11 @@
   },
   "dependencies": {
     "@toruslabs/tss-dkls-lib": "^3.0.0",
-    "@web3-react/core": "^8.2.3",
+    "@web3-react/core": "^6.1.9",
     "@web3auth/base": "^8.12.4",
     "@web3auth/base-provider": "^8.4.0",
     "@web3auth/ethereum-mpc-provider": "^8.12.4",
+    "@web3auth/modal": "^8.12.7",
     "@web3auth/mpc-core-kit": "^3.1.1",
     "@web3auth/single-factor-auth": "^7.4.0",
     "@xmtp/xmtp-js": "^11.4.1",
@@ -23,6 +24,7 @@
     "next": "14.2.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-error-boundary": "^4.0.13",
     "web3": "^4.8.0"
   },
   "devDependencies": {
@@ -36,5 +38,13 @@
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
+  },
+  "main": "index.js",
+  "repository": "https://github.com/depatch/prvt.git",
+  "author": "resatu <resatugur.ulu@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "yarn": ">=1.22.0",
+    "node": ">=14.0.0"
   }
 }

@@ -19,8 +19,14 @@ export default function Home() {
 
   useEffect(() => {
     const isConnected = localStorage.getItem('isConnected')
+    const isProfileCompleted = localStorage.getItem('isProfileCompleted')
+
     if (isConnected === 'true') {
-      router.replace('/home')
+      if (isProfileCompleted === 'true') {
+        router.replace('/home')
+      } else {
+        router.replace('/complete-profile')
+      }
     }
   }, [router])
 

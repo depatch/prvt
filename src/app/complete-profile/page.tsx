@@ -1,13 +1,20 @@
+"use client"
 import React, { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 const CompleteProfilePage: React.FC = () => {
     const [username, setUsername] = useState('')
     const [avatar, setAvatar] = useState<File | null>(null)
+    const router = useRouter()
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         // Implement profile completion logic here
         console.log('Profile completed:', { username, avatar })
+
+        // Set profile as completed and redirect to home
+        localStorage.setItem('isProfileCompleted', 'true')
+        router.replace('/home')
     }
 
     return (

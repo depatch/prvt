@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { BellIcon, ChevronDownIcon, PaperclipIcon, SendIcon } from 'lucide-react'
+import { ConnectWalletButton } from '@/components/ConnectWalletButton'
 
 const AGENTS = ['Club finder agent', 'Club creator agent', 'Calendar assistant']
 const FEATURES = ['Chat private and onchain', 'Create verifiable clubs', 'Use AI agents on chat']
@@ -16,8 +17,12 @@ function HomePage() {
 
     useEffect(() => {
         const isConnected = localStorage.getItem('isConnected')
+        const isProfileCompleted = localStorage.getItem('isProfileCompleted')
+
         if (isConnected !== 'true') {
             router.replace('/')
+        } else if (isProfileCompleted !== 'true') {
+            router.replace('/complete-profile')
         }
     }, [router])
 
@@ -35,23 +40,16 @@ function HomePage() {
 
 function Header() {
     return (
-        <header className="flex justify-between items-center p-4 bg-card">
+        <header className="flex justify-between items-center p-4 bg-dark-surface">
             <div className="flex items-center">
                 <div className="w-6 h-6 border-2 border-white rounded-full mr-2"></div>
                 <span className="text-lg">Private</span>
             </div>
             <div className="flex items-center">
-                <Button variant="ghost" size="icon" className="mr-4">
+                <Button className="mr-4">
                     <BellIcon className="h-5 w-5" />
                 </Button>
-                <Button variant="secondary" className="flex items-center">
-                    <Avatar className="w-6 h-6 mr-2">
-                        <AvatarImage src="/path-to-avatar.jpg" alt="User" />
-                        <AvatarFallback>U</AvatarFallback>
-                    </Avatar>
-                    <span>aysipixie.eth</span>
-                    <ChevronDownIcon className="ml-2 h-4 w-4" />
-                </Button>
+                <ConnectWalletButton />
             </div>
         </header>
     )
@@ -78,16 +76,21 @@ function UserProfile() {
                 <h3 className="font-bold">Aysi</h3>
                 <span className="text-sm text-muted-foreground">Non-verified</span>
             </div>
-            <Button variant="secondary" size="sm" className="ml-auto">Connect Kinto ID</Button>
+            <ConnectWalletButton />
         </div>
     )
+}
+
+// Helper function to shorten wallet addresses
+function shortenAddress(address: string): string {
+    return `${address.slice(0, 6)}...${address.slice(-4)}`
 }
 
 function ChatSection() {
     return (
         <>
             <h4 className="font-bold mb-2">Chats</h4>
-            <Button variant="secondary" className="w-full text-left mb-4">+ Create new message</Button>
+            <Button className="w-full text-left mb-4">+ Create new message</Button>
             <div className="bg-secondary p-4 rounded text-center text-sm mb-4">
                 You don&apos;t have any chats
             </div>
@@ -100,7 +103,7 @@ function ClubSection() {
         <>
             <div className="flex justify-between items-center mb-2">
                 <h4 className="font-bold">Discover latest clubs</h4>
-                <Button variant="secondary" size="sm">+ Create yours</Button>
+                <Button>+ Create yours</Button>
             </div>
             {/* Add club list here */}
             <Link href="#" className="text-sm text-primary">See all →</Link>
@@ -137,11 +140,11 @@ function Footer() {
     return (
         <footer className="bg-card p-4">
             <div className="flex items-center bg-secondary rounded-full p-2">
-                <Button variant="ghost" size="icon" className="mr-2">
+                <Button className="mr-2">
                     <PaperclipIcon className="h-5 w-5" />
                 </Button>
                 <Input placeholder="Message Private" className="flex-1 bg-transparent border-none" />
-                <Button variant="ghost" size="icon">
+                <Button>
                     <SendIcon className="h-5 w-5" />
                 </Button>
             </div>

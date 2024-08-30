@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Web3AuthNoModal } from "@web3auth/no-modal"
-import { WALLET_ADAPTERS, IProvider, CHAIN_NAMESPACES, CustomChainConfig } from "@web3auth/base"
+import { WALLET_ADAPTERS, IProvider, CHAIN_NAMESPACES } from "@web3auth/base"
 import { OpenloginAdapter } from "@web3auth/openlogin-adapter"
 import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider"
 import { ethers } from 'ethers'
@@ -54,10 +54,12 @@ export function ConnectWalletButton() {
 
             if (web3auth.connected) {
                 setIsConnected(true)
-                const address = await getAddress(web3auth.provider!)
-                setAddress(address)
-                setProvider(web3auth.provider)
-                window.localStorage.setItem('provider', JSON.stringify(web3auth.provider))
+                getAddress(web3auth.provider!).then(addr => {
+                    setAddress(addr)
+                    setProvider(web3auth.provider)
+                    localStorage.setItem('isConnected', 'true')
+                    router.push('/home')
+                })
             }
         }
 
@@ -66,7 +68,7 @@ export function ConnectWalletButton() {
         } catch (error) {
             console.error("Error initializing Web3Auth:", error)
         }
-    }, [])
+    }, [router])
 
     const connect = async () => {
         if (!web3auth) return
@@ -74,10 +76,10 @@ export function ConnectWalletButton() {
             const web3authProvider = await web3auth.connectTo(WALLET_ADAPTERS.OPENLOGIN, { loginProvider: "google" })
             setProvider(web3authProvider)
             setIsConnected(true)
-            const address = await getAddress(web3authProvider!)
-            setAddress(address)
-            window.localStorage.setItem('provider', JSON.stringify(web3authProvider))
-            router.push('/app')
+            const addr = await getAddress(web3authProvider!)
+            setAddress(addr)
+            localStorage.setItem('isConnected', 'true')
+            router.push('/home')
         } catch (error) {
             console.error("Error connecting to wallet:", error)
         }
@@ -89,7 +91,7 @@ export function ConnectWalletButton() {
         setProvider(null)
         setIsConnected(false)
         setAddress(null)
-        window.localStorage.removeItem('provider')
+        localStorage.removeItem('isConnected')
     }
 
     const getAddress = async (provider: IProvider): Promise<string> => {
@@ -98,26 +100,20 @@ export function ConnectWalletButton() {
         return await signer.getAddress()
     }
 
+    function formatAddress(addr: string | null): string {
+        if (!addr) return 'Connect Wallet'
+        return `${addr.slice(0, 6)}...${addr.slice(-4)}`
+    }
+
     return (
         <div>
-            {!isConnected ? (
-                <button
-                    onClick={connect}
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                >
-                    Connect Wallet
-                </button>
-            ) : (
-                <div className="flex items-center">
-                    <span className="mr-4 text-sm">{address?.slice(0, 6)}...{address?.slice(-4)}</span>
-                    <button
-                        onClick={disconnect}
-                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                    >
-                        Disconnect
-                    </button>
-                </div>
-            )}
+            <button
+                onClick={isConnected ? disconnect : connect}
+                className={`font-bold py-2 px-4 rounded ${isConnected ? 'bg-red-500 hover:bg-red-700' : 'bg-blue-500 hover:bg-blue-700'
+                    } text-white`}
+            >
+                {formatAddress(address)}
+            </button>
         </div>
     )
 }

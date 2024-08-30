@@ -2,6 +2,8 @@
 import Link from 'next/link'
 import { ErrorBoundary } from 'react-error-boundary'
 import { Header } from "../components/Header" // Adjust the path as needed
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 
 function ErrorFallback({ error }: { error: Error }) {
   return (
@@ -13,6 +15,15 @@ function ErrorFallback({ error }: { error: Error }) {
 }
 
 export default function Home() {
+  const router = useRouter()
+
+  useEffect(() => {
+    const isConnected = localStorage.getItem('isConnected')
+    if (isConnected === 'true') {
+      router.replace('/home')
+    }
+  }, [router])
+
   return (
     <main className="flex flex-col items-center justify-center min-h-screen bg-[#111]" >
       <ErrorBoundary FallbackComponent={ErrorFallback}>

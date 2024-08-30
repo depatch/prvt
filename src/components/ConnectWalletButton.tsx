@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
-import { Web3AuthNoModal } from "@web3auth/no-modal"
-import { WALLET_ADAPTERS, IProvider, CHAIN_NAMESPACES } from "@web3auth/base"
+import { Web3Auth } from "@web3auth/modal"
+import { CHAIN_NAMESPACES, IProvider } from "@web3auth/base"
 import { OpenloginAdapter } from "@web3auth/openlogin-adapter"
 import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider"
 import { ethers } from 'ethers'
@@ -15,8 +15,8 @@ const customChainConfig = {
     rpcTarget: "https://rpc.sapphire.devnet",
 }
 
-export function ConnectWalletButton() {
-    const [web3auth, setWeb3auth] = useState<Web3AuthNoModal | null>(null)
+export function ConnectWalletButton({ className }: { className?: string }) {
+    const [web3auth, setWeb3auth] = useState<Web3Auth | null>(null)
     const [provider, setProvider] = useState<IProvider | null>(null)
     const [address, setAddress] = useState<string | null>(null)
     const router = useRouter()
@@ -24,15 +24,19 @@ export function ConnectWalletButton() {
     const init = useCallback(async () => {
         if (!clientId) throw new Error("Missing Web3Auth client ID")
 
-        const web3auth = new Web3AuthNoModal({
+        const privateKeyProvider = new EthereumPrivateKeyProvider({ config: { chainConfig: customChainConfig } }) // {{ edit_1 }}: Move this line above its usage
+
+        const web3auth = new Web3Auth({
             clientId,
             web3AuthNetwork: "sapphire_devnet",
             chainConfig: customChainConfig,
+            privateKeyProvider
         })
 
-        const privateKeyProvider = new EthereumPrivateKeyProvider({ config: { chainConfig: customChainConfig } })
-        web3auth.configureAdapter(new OpenloginAdapter({ privateKeyProvider }))
-        await web3auth.init()
+        const openloginAdapter = new OpenloginAdapter({ privateKeyProvider })
+        web3auth.configureAdapter(openloginAdapter)
+
+        await web3auth.initModal()
 
         setWeb3auth(web3auth)
 
@@ -52,7 +56,7 @@ export function ConnectWalletButton() {
     const connect = async () => {
         if (!web3auth) return
         try {
-            const web3authProvider = await web3auth.connectTo(WALLET_ADAPTERS.OPENLOGIN, { loginProvider: "email_passwordless" })
+            const web3authProvider = await web3auth.connect()
             setProvider(web3authProvider)
             const addr = await getAddress(web3authProvider!)
             setAddress(addr)
@@ -86,7 +90,8 @@ export function ConnectWalletButton() {
     return (
         <Button
             onClick={address ? disconnect : connect}
-            variant={address ? "destructive" : "default"}
+            variant={address ? "outline" : "default"}
+            className={`bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold ${className}`}
         >
             {formatAddress(address)}
         </Button>

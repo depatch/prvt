@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
 import { ConnectWalletButton } from './ConnectWalletButton' // Import the new button
+import { KintoConnect } from './VerifyButton' 
 
 export function Header() {
     return (
@@ -11,6 +12,7 @@ export function Header() {
             </div>
             <div className="flex items-center">
                 <ConnectWalletButton /> {/* Use the new button here */}
+                <KintoConnect />
             </div>
         </header>
     )

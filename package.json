@@ -30,6 +30,7 @@
     "clsx": "^2.1.1",
     "ethers": "^6.13.2",
     "firebase": "^10.11.1",
+    "kinto-web-sdk": "^1.0.2",
     "lucide-react": "^0.436.0",
     "next": "14.2.6",
     "react": "18.2.0",
@@ -38,6 +39,7 @@
     "react-router-dom": "^6.26.1",
     "shadcn-ui": "^0.9.0",
     "tailwind-merge": "^2.5.2",
+    "viem": "^2.21.1",
     "web3": "^4.8.0"
   },
   "devDependencies": {

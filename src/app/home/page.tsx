@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { BellIcon, ChevronDownIcon, PaperclipIcon, SendIcon } from 'lucide-react'
 import { ConnectWalletButton } from '@/components/ConnectWalletButton'
+import { createKintoSDK } from 'kinto-web-sdk';
 
 const AGENTS = ['Club finder agent', 'Club creator agent', 'Calendar assistant']
 const FEATURES = ['Chat private and onchain', 'Create verifiable clubs', 'Use AI agents on chat']

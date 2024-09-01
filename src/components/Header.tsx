@@ -12,6 +12,7 @@ export function Header() {
             </div>
             <div className="flex items-center">
                 <ConnectWalletButton /> {/* Use the new button here */}
+                <div className="mx-2" />
                 <KintoConnect />
             </div>
         </header>

@@ -31,6 +31,8 @@ export default function Home() {
         router.replace('/complete-profile')
       }
     }
+
+    // Example: Fetch user data or perform any side effects here
   }, [router])
 
   return (

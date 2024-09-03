@@ -1,0 +1,43 @@
+# Add directories or file patterns to ignore during indexing (e.g. foo/ or *.csv)
+# Add directories or file patterns to ignore during indexing (e.g. foo/ or *.csv)
+
+# Ignore example files
+examples/corekit-nextjs-starter.tsx
+examples/web3auth-no-modal-login-to-xmtp.tsx
+
+# Ignore node_modules directory
+node_modules/
+
+# Ignore build output directories
+.next/
+out/
+build/
+
+# Ignore environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Ignore log files
+*.log
+
+# Ignore OS generated files
+.DS_Store
+Thumbs.db
+
+# Ignore package manager files
+yarn.lock
+package-lock.json
+
+# Ignore IDE/Editor folders
+.vscode/
+.idea/
+
+# Ignore test coverage output
+coverage/
+
+# Ignore temporary files
+*.tmp
+*.temp

@@ -3,7 +3,7 @@ import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
 import { Web3AuthNoModal } from "@web3auth/no-modal";
 import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
 import { useEffect, useState } from "react";
-import { FloatingInbox } from "./FloatingInbox/index.jsx";
+// import { FloatingInbox } from "./FloatingInbox"; // Adjusted import if index.tsx is the default export
 import { ethers, JsonRpcSigner } from "ethers";
 
 const clientId = "NEXT_PUBLIC_WEB3AUTH_CLIENT_ID"; // get from https://dashboard.web3auth.io
@@ -197,21 +197,21 @@ function App() {
                     <button
                         className="home-button"
                         style={styles.ButtonStyledStyle}
-                        onClick={() => window.FloatingInbox.open()}
+                        onClick={() => window.FloatingInbox?.open()}
                     >
                         Open
                     </button>
                     <button
                         className="home-button"
                         style={{ ...styles.ButtonStyledStyle, marginLeft: 10 }}
-                        onClick={() => window.FloatingInbox.close()}
+                        onClick={() => window.FloatingInbox?.close()}
                     >
                         Close
                     </button>
                 </section>
             )}
             {loggedIn && (
-                <FloatingInbox env={process.env.REACT_APP_XMTP_ENV} wallet={wallet} />
+                <div data-env={process.env.REACT_APP_XMTP_ENV} data-wallet={wallet} />
             )}
         </div>
     );

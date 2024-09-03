@@ -27,8 +27,7 @@
       ]
     },
     "baseUrl": ".",
-    "resolveJsonModule": true,
-    "esModuleInterop": true
+    "typeRoots": ["./src/types", "./types"]
   },
   "include": [
     "next-env.d.ts",

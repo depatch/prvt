@@ -7,19 +7,26 @@ import Image from 'next/image'
 import { useWeb3Auth } from '@/hooks/useWeb3Auth'
 import { useENS } from '@/hooks/useENS'
 import { fetchNFTs } from '@/utils/nftFetcher'
+import { ConnectWalletButton } from '@/components/ConnectWalletButton'
+
+interface NFT {
+    id: string;
+    image: string;
+    name: string;
+}
 
 export default function CompleteProfile() {
     const [username, setUsername] = useState('')
     const [selectedNFT, setSelectedNFT] = useState<string | null>(null)
-    const [nfts, setNfts] = useState([])
+    const [nfts, setNfts] = useState<NFT[]>([])
     const [isLoading, setIsLoading] = useState(true)
     const router = useRouter()
-    const { address } = useWeb3Auth()
+    const { address, isConnected, connect } = useWeb3Auth()
     const { ensName, isPremium } = useENS(address ?? '')
 
     useEffect(() => {
         async function loadNFTs() {
-            if (address) {
+            if (address && isConnected) {
                 setIsLoading(true)
                 const userNFTs = await fetchNFTs(address)
                 setNfts(userNFTs)
@@ -27,8 +34,10 @@ export default function CompleteProfile() {
             }
         }
 
-        loadNFTs()
-    }, [address])
+        if (isConnected) {
+            loadNFTs()
+        }
+    }, [address, isConnected])
 
     useEffect(() => {
         if (ensName) {
@@ -36,8 +45,12 @@ export default function CompleteProfile() {
         }
     }, [ensName])
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
+        if (!isConnected) {
+            alert('Please connect your wallet first')
+            return
+        }
         if (!username || !selectedNFT) {
             alert('Please fill in all fields')
             return
@@ -47,6 +60,18 @@ export default function CompleteProfile() {
         
         localStorage.setItem('isProfileCompleted', 'true')
         router.push('/home')
+    }
+
+    if (!isConnected) {
+        return (
+            <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-100">
+                <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md text-center">
+                    <h1 className="text-2xl font-bold mb-6">Connect Your Wallet</h1>
+                    <p className="mb-4">Please connect your wallet to complete your profile.</p>
+                    <ConnectWalletButton />
+                </div>
+            </div>
+        )
     }
 
     if (isLoading) {

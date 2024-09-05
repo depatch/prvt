@@ -1,8 +1,9 @@
 "use client"
 import { useState } from 'react'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { CreateMessageDialog } from '@/components/CreateMessageDialog'
+// Assuming the components are in a different location or need to be imported differently
+// import { Button } from '@/components/ui/button'
+// import { Input } from '@/components/ui/input'
+import CreateMessageDialog from '@/components/CreateMessageDialog'
 
 export default function ChatsPage() {
   const [chats, setChats] = useState([])

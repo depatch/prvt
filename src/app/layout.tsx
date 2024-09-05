@@ -1,14 +1,11 @@
+'use client'; // Add this at the top of the file
+
 import React from 'react';
 import "./globals.css";
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { MessageProvider } from '@/contexts/MessageContext'
 import { usePathname } from 'next/navigation'
-
-export const metadata = {
-  title: 'PRVT Chat',
-  description: 'A decentralized chat application',
-};
 
 export default function RootLayout({
   children,

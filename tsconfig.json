@@ -27,7 +27,11 @@
       ]
     },
     "baseUrl": ".",
-    "typeRoots": ["./src/types", "./types"]
+    "typeRoots": ["./src/types", "./types"],
+    "types": [
+      "vite/client",
+      // other necessary types
+    ]
   },
   "include": [
     "next-env.d.ts",

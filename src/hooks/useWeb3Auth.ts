@@ -1,48 +1,42 @@
 // src/hooks/useWeb3Auth.ts
 import { useState, useEffect, useCallback } from 'react';
-import { Web3Auth } from '@web3auth/modal';
-import { CHAIN_NAMESPACES, IProvider } from '@web3auth/base';
-import { OpenloginAdapter } from '@web3auth/openlogin-adapter';
+import { Web3Auth } from "@web3auth/modal";
+import { CHAIN_NAMESPACES } from "@web3auth/base";
+import { ethers } from 'ethers';
 import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
 
-const clientId = process.env.NEXT_PUBLIC_WEB3AUTH_CLIENT_ID || "";
+const clientId = process.env.NEXT_PUBLIC_WEB3AUTH_CLIENT_ID;
+
+if (!clientId) {
+  throw new Error("Missing NEXT_PUBLIC_WEB3AUTH_CLIENT_ID");
+}
+
+const chainConfig = {
+  chainNamespace: CHAIN_NAMESPACES.EIP155,
+  chainId: "0x1", // mainnet
+  rpcTarget: "https://mainnet.infura.io/v3/YOUR_INFURA_PROJECT_ID",
+};
+
+const privateKeyProvider = new EthereumPrivateKeyProvider({ config: { chainConfig } });
 
 export function useWeb3Auth() {
   const [web3auth, setWeb3auth] = useState<Web3Auth | null>(null);
-  const [provider, setProvider] = useState<IProvider | null>(null);
-  const [address, setAddress] = useState<string>('');
+  const [provider, setProvider] = useState<any>(null);
+  const [address, setAddress] = useState<string | null>(null);
+  const [isConnected, setIsConnected] = useState(false);
 
   useEffect(() => {
     const init = async () => {
       try {
-        const privateKeyProvider = new EthereumPrivateKeyProvider({
-          config: { chainConfig: {
-            chainNamespace: CHAIN_NAMESPACES.EIP155,
-            chainId: "0x1", // mainnet
-            rpcTarget: process.env.NEXT_PUBLIC_RPC_URL || "",
-          } }
-        });
-
         const web3auth = new Web3Auth({
-          clientId,
-          web3AuthNetwork: "cyan",
+          clientId: clientId || "",
+          chainConfig,
           privateKeyProvider,
         });
-
-        const openloginAdapter = new OpenloginAdapter({
-          adapterSettings: {
-            network: "cyan",
-            uxMode: "popup",
-          },
-        });
-        web3auth.configureAdapter(openloginAdapter);
 
         setWeb3auth(web3auth);
 
         await web3auth.initModal();
-        if (web3auth.provider) {
-          setProvider(web3auth.provider);
-        }
       } catch (error) {
         console.error(error);
       }
@@ -58,9 +52,13 @@ export function useWeb3Auth() {
     }
     const web3authProvider = await web3auth.connect();
     setProvider(web3authProvider);
+    
     if (web3authProvider) {
-      const userInfo = await web3auth.getUserInfo();
-      setAddress((userInfo as any)?.address ?? '');
+      const ethersProvider = new ethers.BrowserProvider(web3authProvider);
+      const signer = await ethersProvider.getSigner();
+      const addr = await signer.getAddress();
+      setAddress(addr);
+      setIsConnected(true);
     }
   }, [web3auth]);
 
@@ -71,10 +69,9 @@ export function useWeb3Auth() {
     }
     await web3auth.logout();
     setProvider(null);
-    setAddress('');
+    setAddress(null);
+    setIsConnected(false);
   }, [web3auth]);
 
-  const isConnected = !!provider;
-
-  return { connect, disconnect, isConnected, address };
+  return { connect, disconnect, isConnected, address, provider };
 }

@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { Client } from '@xmtp/xmtp-js'
-import { verifyConsentProof } from '@xmtp/consent-proof-signature'
+import { createConsentMessage } from '@xmtp/consent-proof-signature'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
@@ -15,7 +15,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
     // Verify the consent proof
-    const isValid = await verifyConsentProof(consentProof, broadcastAddress)
+    const isValid = await createConsentMessage(consentProof, broadcastAddress)
 
     if (!isValid) {
       return res.status(400).json({ message: 'Invalid consent proof' })

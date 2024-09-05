@@ -27,9 +27,8 @@
       ]
     },
     "baseUrl": ".",
-    "typeRoots": ["./src/types", "./types"],
+    "typeRoots": ["./node_modules/@types/", "./types", "./node_modules"],
     "types": [
-      "vite/client",
       // other necessary types
     ]
   },

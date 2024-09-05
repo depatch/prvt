@@ -3,7 +3,6 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useWeb3Auth } from '@/hooks/useWeb3Auth'
 import { fetchNFTs } from '@/utils/nftFetcher'
-import { SignSDK } from '@signprotocol/sdk'
 import { useXMTP } from '@/hooks/useXMTP'
 
 interface Club {
@@ -21,7 +20,7 @@ export function ClubFinderAgent() {
   const [userNFTs, setUserNFTs] = useState<any[]>([])
   const [selectedClub, setSelectedClub] = useState<Club | null>(null)
   const [answers, setAnswers] = useState<string[]>([])
-  const { address, provider } = useWeb3Auth()
+  const { address } = useWeb3Auth()
   const { client } = useXMTP(useWeb3Auth().wallet)
 
   useEffect(() => {
@@ -40,8 +39,6 @@ export function ClubFinderAgent() {
   }
 
   const findClubs = async () => {
-    // TODO: Implement actual club finding logic
-    // This is a placeholder implementation
     const mockClubs: Club[] = [
       { 
         id: '1', 
@@ -55,14 +52,14 @@ export function ClubFinderAgent() {
         name: 'DeFi Explorers', 
         description: 'Discuss the latest in decentralized finance', 
         nftRequirement: '0x456...',
-        entryQuestions: ['What's your favorite DeFi protocol?', 'How do you see DeFi evolving in the next 5 years?']
+        entryQuestions: ['What\'s your favorite DeFi protocol?', 'How do you see DeFi evolving in the next 5 years?']
       },
       { 
         id: '3', 
         name: 'Blockchain Developers', 
         description: 'For those building the future of Web3', 
         nftRequirement: '0x789...',
-        entryQuestions: ['What programming languages do you use for blockchain development?', 'What's the most interesting smart contract you've written?']
+        entryQuestions: ['What programming languages do you use for blockchain development?', 'What\'s the most interesting smart contract you\'ve written?']
       },
     ]
     setRecommendedClubs(mockClubs)
@@ -84,26 +81,9 @@ export function ClubFinderAgent() {
   }
 
   const handleSubmitApplication = async () => {
-    if (!selectedClub || !address || !provider) return
+    if (!selectedClub || !address) return
 
     try {
-      // Create membership application attestation
-      const signSDK = new SignSDK(provider)
-      const attestation = await signSDK.createAttestation({
-        schema: 'club-membership-application',
-        recipient: address,
-        expirationTime: Math.floor(Date.now() / 1000) + 604800, // 1 week from now
-        data: {
-          clubId: selectedClub.id,
-          clubName: selectedClub.name,
-          applicant: address,
-          answers: answers,
-          appliedAt: new Date().toISOString(),
-        },
-      })
-
-      console.log('Club membership application attestation created:', attestation)
-
       // Send application to the club
       if (client) {
         const conversation = await client.conversations.newConversation(selectedClub.id) // Assuming club.id is the club's address
@@ -111,7 +91,6 @@ export function ClubFinderAgent() {
           type: 'membership_application',
           applicant: address,
           answers: answers,
-          attestationId: attestation.id,
         }))
       }
 

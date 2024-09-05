@@ -15,7 +15,7 @@ export default function CompleteProfile() {
     const [isLoading, setIsLoading] = useState(true)
     const router = useRouter()
     const { address } = useWeb3Auth()
-    const { ensName, isPremium } = useENS(address)
+    const { ensName, isPremium } = useENS(address ?? '')
 
     useEffect(() => {
         async function loadNFTs() {

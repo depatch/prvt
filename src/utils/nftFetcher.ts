@@ -16,7 +16,7 @@ export async function fetchNFTs(address: string) {
       }
     });
 
-    return response.data.assets.map(asset => ({
+    return response.data.assets.map((asset: any) => ({
       id: asset.token_id,
       image: asset.image_url,
       name: asset.name

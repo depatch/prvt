@@ -36,69 +36,108 @@ yarn dev
 ## Planned Project Delivery Structure
 
 ```
-src/
-├── components/
-│   ├── auth/
-│   │   ├── Web3AuthButton.tsx
-│   │   ├── WalletConnectButton.tsx
-│   │   └── KYCVerification.tsx
-│   ├── profile/
-│   │   ├── ProfileCreation.tsx
-│   │   ├── NFTSelector.tsx
-│   │   └── ENSBadge.tsx
-│   ├── club/
-│   │   ├── ClubCreator.tsx
-│   │   ├── ClubFinder.tsx
-│   │   ├── MembershipRequirements.tsx
-│   │   └── ClubActivities.tsx
-│   ├── chat/
-│   │   ├── ChatWindow.tsx
+.
+├── components.json
+├── implementation-steps.md
+├── next-env.d.ts
+├── next.config.mjs
+├── package.json
+├── postcss.config.js
+├── postcss.config.mjs
+├── public
+│   ├── abis
+│   │   └── 7887.json
+│   ├── next.svg
+│   └── vercel.svg
+├── readme.md
+├── src
+│   ├── app
+│   │   ├── chat
+│   │   │   └── page.tsx
+│   │   ├── clubs
+│   │   │   └── page.tsx
+│   │   ├── complete-profile
+│   │   │   └── page.tsx
+│   │   ├── favicon.ico
+│   │   ├── globals.css
+│   │   ├── home
+│   │   │   └── page.tsx
+│   │   ├── layout.tsx
+│   │   ├── messages
+│   │   │   └── page.tsx
+│   │   └── page.tsx
+│   ├── components
+│   │   ├── ActiveSession.tsx
+│   │   ├── ClubActivities.tsx
+│   │   ├── ClubChat.tsx
+│   │   ├── ClubContent.tsx
+│   │   ├── ClubCreatorAgent.tsx
+│   │   ├── ClubEvents.tsx
+│   │   ├── ClubFinderAgent.tsx
+│   │   ├── ClubGovernance.tsx
+│   │   ├── ClubPolls.tsx
+│   │   ├── ClubSharing.tsx
+│   │   ├── ConnectWalletButton.tsx
+│   │   ├── Conversation.tsx
+│   │   ├── CreateClubDialog.tsx
+│   │   ├── CreateMessageDialog.tsx
+│   │   ├── Footer.tsx
+│   │   ├── GaladrielSpamRemover.tsx
+│   │   ├── Header.tsx
 │   │   ├── MessageInput.tsx
-│   │   └── GaladrielSpamRemover.tsx
-│   └── games/
-│       ├── ZkNoidGame.tsx
-│       └── SportsBetting.tsx
-├── pages/
-│   ├── index.tsx
-│   ├── auth.tsx
-│   ├── onboarding.tsx
-│   ├── profile.tsx
-│   ├── clubs/
-│   │   ├── create.tsx
-│   │   ├── discover.tsx
-│   │   └── [clubId].tsx
-│   └── games/
-│       ├── zknoid.tsx
-│       └── sports-betting.tsx
-├── hooks/
-│   ├── useWeb3Auth.ts
-│   ├── useWalletConnect.ts
-│   ├── useNFTs.ts
-│   ├── useENS.ts
-│   ├── useKYC.ts
-│   ├── useClub.ts
-│   └── useXMTP.ts
-├── services/
-│   ├── web3AuthService.ts
-│   ├── walletConnectService.ts
-│   ├── kintoService.ts
-│   ├── signProtocolService.ts
-│   ├── galadrielService.ts
-│   ├── xmtpService.ts
-│   ├── litProtocolService.ts
-│   ├── stackrService.ts
-│   └── chilizService.ts
-├── utils/
-│   ├── accountAbstraction.ts
-│   ├── nftGating.ts
-│   └── pointSystem.ts
-├── styles/
-│   └── globals.css
-└── types/
-    ├── user.ts
-    ├── club.ts
-    ├── message.ts
-    └── game.ts
+│   │   ├── MessageList.tsx
+│   │   ├── NotificationCenter.tsx
+│   │   ├── OnboardingTutorial.tsx
+│   │   ├── PinnedMessages.tsx
+│   │   ├── SportsBetting.tsx
+│   │   ├── UserAchievements.tsx
+│   │   ├── UserBadges.tsx
+│   │   ├── VerifyButton.tsx
+│   │   ├── XMTPSubscribeButton.tsx
+│   │   ├── ZkNoidGame.tsx
+│   │   └── ui
+│   │       ├── avatar.tsx
+│   │       ├── badge.tsx
+│   │       ├── button.tsx
+│   │       ├── checkbox.tsx
+│   │       ├── dialog.tsx
+│   │       ├── input.tsx
+│   │       ├── progress.tsx
+│   │       ├── textarea.tsx
+│   │       └── toast.tsx
+│   ├── contexts
+│   │   └── MessageContext.tsx
+│   ├── hooks
+│   │   ├── useChiliz.ts
+│   │   ├── useENS.ts
+│   │   ├── useLitProtocol.ts
+│   │   ├── useMina.ts
+│   │   ├── useStackr.ts
+│   │   ├── useWeb3Auth.ts
+│   │   └── useXMTP.ts
+│   ├── index.css
+│   ├── lib
+│   │   └── utils.ts
+│   ├── pages
+│   │   └── api
+│   │       ├── serper-search.ts
+│   │       └── xmtp
+│   │           ├── subscribe.ts
+│   │           └── subscriptions.ts
+│   ├── prvt.code-workspace
+│   ├── public
+│   │   └── abis
+│   │       └── Agent.json
+│   ├── types
+│   │   ├── floatingInbox.d.ts
+│   │   └── index.d.ts
+│   └── utils
+│       └── nftFetcher.ts
+├── tailwind.config.js
+├── tailwind.config.ts
+├── todos.md
+├── tsconfig.json
+└── yarn.lock
 ```
 
 ## Core Flows

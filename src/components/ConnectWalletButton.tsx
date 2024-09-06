@@ -3,17 +3,18 @@ import { useWeb3Auth } from '../hooks/useWeb3Auth';
 import { Button } from './ui/button';
 
 interface ConnectWalletButtonProps {
-  className?: string;
-  // ... other props
+	className?: string;
+	// ... other props
 }
 
 export const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({ className, ...props }) => {
-	const { connect, disconnect, isConnected, address } = useWeb3Auth();
+	const { connect, disconnect, getWalletConnectV2Adaptere, isConnected, address } = useWeb3Auth();
 
 	// Add a loading state to handle connection status
 	const [loading, setLoading] = React.useState(false);
 
 	const handleClick = async () => {
+
 		setLoading(true);
 		try {
 			isConnected ? await disconnect() : await connect();

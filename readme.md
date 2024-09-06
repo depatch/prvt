@@ -1,172 +1,36 @@
-# PRVT Chat App
-
-PRVT Chat App is a secure, blockchain-integrated communication platform that offers features like club creation, NFT integration, and decentralized messaging.
-
-## Features
-
-- User Registration and Onboarding with Web3Auth
-- Club Creation and Management
-- Club Discovery and Joining
-- Secure In-Club Communication
-- NFT and POAP Integration
-- Decentralized Messaging with XMTP
-- Spam Removal with Galadriel
-- KYC Verification with Kinto
-- Point System with Stackr Micro-rollup
-- zkNoid Game Integration
-- Sports Betting with Chiliz Blockchain
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
 
-1. Clone the repository
-2. Install dependencies:
+First, run the development server:
 
 ```bash
-yarn
-```
-
-3. Run the development server:
-
-```bash
+npm run dev
+# or
 yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Planned Project Delivery Structure
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-```
-.
-├── components.json
-├── implementation-steps.md
-├── next-env.d.ts
-├── next.config.mjs
-├── package.json
-├── postcss.config.js
-├── postcss.config.mjs
-├── public
-│   ├── abis
-│   │   └── 7887.json
-│   ├── next.svg
-│   └── vercel.svg
-├── readme.md
-├── src
-│   ├── app
-│   │   ├── chat
-│   │   │   └── page.tsx
-│   │   ├── clubs
-│   │   │   └── page.tsx
-│   │   ├── complete-profile
-│   │   │   └── page.tsx
-│   │   ├── favicon.ico
-│   │   ├── globals.css
-│   │   ├── home
-│   │   │   └── page.tsx
-│   │   ├── layout.tsx
-│   │   ├── messages
-│   │   │   └── page.tsx
-│   │   └── page.tsx
-│   ├── components
-│   │   ├── ActiveSession.tsx
-│   │   ├── ClubActivities.tsx
-│   │   ├── ClubChat.tsx
-│   │   ├── ClubContent.tsx
-│   │   ├── ClubCreatorAgent.tsx
-│   │   ├── ClubEvents.tsx
-│   │   ├── ClubFinderAgent.tsx
-│   │   ├── ClubGovernance.tsx
-│   │   ├── ClubPolls.tsx
-│   │   ├── ClubSharing.tsx
-│   │   ├── ConnectWalletButton.tsx
-│   │   ├── Conversation.tsx
-│   │   ├── CreateClubDialog.tsx
-│   │   ├── CreateMessageDialog.tsx
-│   │   ├── Footer.tsx
-│   │   ├── GaladrielSpamRemover.tsx
-│   │   ├── Header.tsx
-│   │   ├── MessageInput.tsx
-│   │   ├── MessageList.tsx
-│   │   ├── NotificationCenter.tsx
-│   │   ├── OnboardingTutorial.tsx
-│   │   ├── PinnedMessages.tsx
-│   │   ├── SportsBetting.tsx
-│   │   ├── UserAchievements.tsx
-│   │   ├── UserBadges.tsx
-│   │   ├── VerifyButton.tsx
-│   │   ├── XMTPSubscribeButton.tsx
-│   │   ├── ZkNoidGame.tsx
-│   │   └── ui
-│   │       ├── avatar.tsx
-│   │       ├── badge.tsx
-│   │       ├── button.tsx
-│   │       ├── checkbox.tsx
-│   │       ├── dialog.tsx
-│   │       ├── input.tsx
-│   │       ├── progress.tsx
-│   │       ├── textarea.tsx
-│   │       └── toast.tsx
-│   ├── contexts
-│   │   └── MessageContext.tsx
-│   ├── hooks
-│   │   ├── useChiliz.ts
-│   │   ├── useENS.ts
-│   │   ├── useLitProtocol.ts
-│   │   ├── useMina.ts
-│   │   ├── useStackr.ts
-│   │   ├── useWeb3Auth.ts
-│   │   └── useXMTP.ts
-│   ├── index.css
-│   ├── lib
-│   │   └── utils.ts
-│   ├── pages
-│   │   └── api
-│   │       ├── serper-search.ts
-│   │       └── xmtp
-│   │           ├── subscribe.ts
-│   │           └── subscriptions.ts
-│   ├── prvt.code-workspace
-│   ├── public
-│   │   └── abis
-│   │       └── Agent.json
-│   ├── types
-│   │   ├── floatingInbox.d.ts
-│   │   └── index.d.ts
-│   └── utils
-│       └── nftFetcher.ts
-├── tailwind.config.js
-├── tailwind.config.ts
-├── todos.md
-├── tsconfig.json
-└── yarn.lock
-```
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Core Flows
+## Learn More
 
-1. User Registration and Onboarding
-2. Club Creation and Management
-3. Club Discovery and Joining
-4. Essential In-Club Communication
-5. Standalone dApp Flows (zkNoid game, sports betting)
+To learn more about Next.js, take a look at the following resources:
 
-For detailed implementation steps, refer to the `implementation-steps.md` file in the project root.
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-## Technologies Used
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-- Next.js
-- Web3Auth
-- XMTP
-- Lit Protocol
-- Galadriel
-- Sign Protocol
-- Stackr
-- Chiliz Blockchain
-- Kinto
-- ZkNoid
+## Deploy on Vercel
 
-<!-- ## Contributing
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-We welcome contributions to the PRVT Chat App! Please read our [contributing guidelines](CONTRIBUTING.md) for more details.
-
-## License
-
-This project is licensed under the MIT License - see the `LICENSE.md` file for details. -->
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

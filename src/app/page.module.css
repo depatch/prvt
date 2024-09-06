@@ -1,0 +1,99 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem;
+  background: linear-gradient(to bottom right, var(--background), #1E3A8A);
+}
+
+.container {
+  max-width: 900px;
+  text-align: center;
+}
+
+.title {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  background: linear-gradient(to right, #60A5FA, #34D399);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.description {
+  font-size: 1.2rem;
+  margin-bottom: 3rem;
+  color: #E5E7EB;
+}
+
+.features {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 3rem;
+}
+
+.feature {
+  flex-basis: 30%;
+  padding: 1.5rem;
+  background-color: rgba(31, 41, 55, 0.5);
+  border-radius: 0.5rem;
+  transition: transform 0.3s ease;
+}
+
+.feature:hover {
+  transform: translateY(-5px);
+}
+
+.feature h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: #60A5FA;
+}
+
+.feature p {
+  font-size: 0.9rem;
+  color: #D1D5DB;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.launchButton {
+  background-color: var(--primary);
+  color: var(text);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+}
+
+.launchButton:hover {
+  background-color: #2563EB;
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 2.5rem;
+  }
+
+  .features {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .feature {
+    flex-basis: auto;
+  }
+
+  .buttonContainer {
+    flex-direction: column;
+  }
+}

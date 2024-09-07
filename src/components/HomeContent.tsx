@@ -60,8 +60,8 @@ const HomeContent: React.FC = () => {
       ) : xmtpClient ? (
         <div className={styles.contentContainer}>
           <div className={styles.chatContainer}>
-            <ChatList setActiveChat={setActiveChat} provider={provider} />
-            <ChatWindow conversation={activeChat} provider={provider} />
+            <ChatList setActiveChat={setActiveChat} provider={provider} isConnected={isConnected} address={address}/>
+            <ChatWindow conversation={activeChat} provider={provider} isConnected={isConnected} address={address}/>
           </div>
           <div className={styles.agentContainer}>
             <ClubFinderAgent />

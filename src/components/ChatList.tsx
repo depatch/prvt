@@ -6,11 +6,13 @@ import styles from './ChatList.module.css'
 interface ChatListProps {
   setActiveChat: (conversation: any) => void;
   provider: any;
+  isConnected: boolean;
+  address: string | null;
 }
 
-export default function ChatList({ setActiveChat, provider }: ChatListProps) {
+export default function ChatList({ setActiveChat, provider, isConnected, address }: ChatListProps) {
   const [conversations, setConversations] = useState<any[]>([])
-  const { xmtpClient } = useXmtp(provider)
+  const { xmtpClient } = useXmtp(provider, isConnected.toString(), address)
 
   useEffect(() => {
     const loadConversations = async () => {
@@ -32,7 +34,12 @@ export default function ChatList({ setActiveChat, provider }: ChatListProps) {
   return (
     <div className={styles.chatList}>
       <h2>Chats</h2>
-      <NewConversation onConversationCreated={handleConversationCreated} provider={provider} />
+      <NewConversation 
+        onConversationCreated={handleConversationCreated} 
+        provider={provider}
+        isConnected={isConnected}
+        address={address}
+      />
       {conversations.length === 0 ? (
         <div className={styles.emptyState}>
           You don't have any chats yet

@@ -6,28 +6,63 @@ import styles from './ChatWindow.module.css'
 interface ChatWindowProps {
   conversation: any;
   provider: any;
+  address: string | null;
+  isConnected: boolean;
 }
 
-export default function ChatWindow({ conversation, provider }: ChatWindowProps) {
+export default function ChatWindow({ conversation, provider, isConnected, address }: ChatWindowProps) {
   const [messages, setMessages] = useState<any[]>([])
-  const { xmtpClient } = useXmtp(provider)
+  const { xmtpClient } = useXmtp(provider, isConnected.toString(), address)
+
+//   ```
+//   //Start a new conversation
+// async function start_a_new_conversation() {
+//   const canMessage = await check_if_an_address_is_on_the_network();
+//   if (!canMessage) {
+//     console.log("Cannot message this address. Exiting...");
+//     return;
+//   }
+
+//   if (xmtp) {
+//     conversation = await xmtp.conversations.newConversation(WALLET_TO);
+//     console.log("Conversation created", conversation);
+//     console.log(`Conversation created with ${conversation.peerAddress} `);
+//   }
+// }
+
+// //Send a message
+// async function send_a_message(content) {
+//   if (conversation) {
+//     const message = await conversation.send(content);
+//     console.log(`Message sent: "${message.content}"`);
+//     return message;
+//   }
+
+// }
+//   ```
 
   useEffect(() => {
+    let isMounted = true;
     const loadMessages = async () => {
       if (conversation) {
         const history = await conversation.messages()
-        setMessages(history)
+        if (isMounted) setMessages(history)
+
+        const streamMessages = async () => {
+          const stream = await conversation.streamMessages()
+          for await (const message of stream) {
+            if (isMounted) setMessages((prevMessages) => [...prevMessages, message])
+          }
+        }
+        streamMessages()
       }
     }
     loadMessages()
 
-    const streamMessages = async () => {
-      const stream = await conversation.streamMessages()
-      for await (const message of stream) {
-        setMessages((prevMessages) => [...prevMessages, message])
-      }
+    return () => {
+      isMounted = false;
+      // If there's a way to cancel the stream, do it here
     }
-    streamMessages()
   }, [conversation])
 
   const handleSendMessage = async (content: string) => {

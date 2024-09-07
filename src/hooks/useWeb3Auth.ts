@@ -11,8 +11,6 @@ import {
 } from "@web3auth/wallet-connect-v2-adapter";
 import { MetamaskAdapter } from "@web3auth/metamask-adapter";
 
-
-
 const clientId = process.env.NEXT_PUBLIC_WEB3AUTH_CLIENT_ID;
 
 if (!clientId) {
@@ -23,6 +21,14 @@ const chainConfig = {
   chainNamespace: CHAIN_NAMESPACES.EIP155,
   chainId: "0x1", // mainnet
   rpcTarget: "https://ethereum.blockpi.network/v1/rpc/public",
+  clientId: clientId,
+  sessionTime: 3600, // 1 hour in seconds
+  web3AuthNetwork: "sapphire_mainnet",
+  chainConfig: {
+    chainNamespace: CHAIN_NAMESPACES.EIP155,
+    chainId: "0x1",
+    rpcTarget: "https://rpc.ankr.com/eth", // This is the public RPC we have added, please pass on your own endpoint while creating an app
+  }
 };
 
 const privateKeyProvider = new EthereumPrivateKeyProvider({ config: { chainConfig } });
@@ -34,16 +40,7 @@ export function useWeb3Auth() {
   const [isConnected, setIsConnected] = useState(false);
   const [isInitialized, setIsInitialized] = useState(false);
 
-  const metamaskAdapter = new MetamaskAdapter({
-    clientId,
-    sessionTime: 3600, // 1 hour in seconds
-    web3AuthNetwork: "sapphire_mainnet",
-    chainConfig: {
-      chainNamespace: CHAIN_NAMESPACES.EIP155,
-      chainId: "0x1",
-      rpcTarget: "https://rpc.ankr.com/eth", // This is the public RPC we have added, please pass on your own endpoint while creating an app
-    },
-  });
+  const metamaskAdapter = new MetamaskAdapter({ config: { chainConfig } });
 
   useEffect(() => {
     const init = async () => {

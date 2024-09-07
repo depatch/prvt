@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useWeb3Auth } from '../hooks/useWeb3Auth';
 import { useXmtp } from '../hooks/useXMTP';
+import useGaladriel from '../hooks/useGaladriel'; // useGaladriel hook'unu doğru şekilde içe aktarın
 import ConnectWalletButton from './ConnectWalletButton';
 import KintoVerification from './KintoVerification';
 import ChatList from './ChatList';
@@ -13,6 +14,7 @@ import styles from './HomeContent.module.css';
 
 const HomeContent: React.FC = () => {
   const { isConnected, address, provider, isInitialized, connect } = useWeb3Auth();
+  const { messages, sendMessage, chatId } = useGaladriel();
   const [activeChat, setActiveChat] = useState<any>(null);
   const [isXmtpInitializing, setIsXmtpInitializing] = useState(true);
 
@@ -47,9 +49,9 @@ const HomeContent: React.FC = () => {
     <div className={styles.container}>
       <h2 className={styles.welcomeTitle}>Welcome to the PRVT Chat App</h2>
       <p className={styles.addressText}>Connected address: {address}</p>
-      
-      <KintoVerification />
 
+      <KintoVerification />
+      <button onClick={() => sendMessage("Test message" + messages.length + chatId)}>Send Test Message</button> {/* Test butonu ekleyin */}
       {isXmtpInitializing ? (
         <p className={styles.loadingText}>Initializing XMTP client...</p>
       ) : xmtpError ? (

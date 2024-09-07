@@ -1,0 +1,28 @@
+.features {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.featureList {
+  display: flex;
+  gap: 1rem;
+}
+
+.feature {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #374151;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  text-align: center;
+}
+
+.icon {
+  font-size: 2rem;
+}

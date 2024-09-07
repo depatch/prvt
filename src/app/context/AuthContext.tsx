@@ -13,7 +13,7 @@ export type AuthContextType = {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-    const [authState, setAuthState] = useState({
+    const [authState, setAuthState] = useState<AuthContextType['authState']>({
         isConnected: false,
         address: null,
     });
@@ -27,6 +27,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     const updateAuthState = (isConnected: boolean, address: string | null) => {
         setAuthState({ isConnected, address });
+        if (address) {
+            localStorage.setItem('userAddress', address);
+        } else {
+            localStorage.removeItem('userAddress');
+        }
     };
 
     return (

@@ -1,0 +1,26 @@
+.chatList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.newChat {
+  background: none;
+  border: none;
+  color: #9CA3AF;
+  cursor: pointer;
+}
+
+.emptyState {
+  background-color: #374151;
+  padding: 1rem;
+  text-align: center;
+  border-radius: 0.5rem;
+  color: #9CA3AF;
+}

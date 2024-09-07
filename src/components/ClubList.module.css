@@ -1,0 +1,54 @@
+.clubList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.createClub {
+  background: none;
+  border: none;
+  color: #9CA3AF;
+  cursor: pointer;
+}
+
+.club {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #374151;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+.clubInfo h3 {
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.clubInfo p, .clubInfo span {
+  font-size: 0.8rem;
+  color: #9CA3AF;
+}
+
+.joinButton {
+  background-color: #4B5563;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.seeAll {
+  background: none;
+  border: none;
+  color: #9CA3AF;
+  cursor: pointer;
+  align-self: flex-end;
+}

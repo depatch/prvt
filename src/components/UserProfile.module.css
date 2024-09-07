@@ -1,0 +1,36 @@
+.userProfile {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #374151;
+  border-radius: 0.5rem;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+
+.userInfo {
+  flex: 1;
+}
+
+.username {
+  font-weight: bold;
+}
+
+.status {
+  font-size: 0.8rem;
+  color: #9CA3AF;
+}
+
+.connectButton {
+  background-color: #4B5563;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}

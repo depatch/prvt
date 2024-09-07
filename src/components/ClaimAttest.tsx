@@ -3,70 +3,66 @@ import {
   SignProtocolClient,
   SpMode,
   EvmChains,
-  delegateSignAttestation,
-  delegateSignSchema,
   DataLocationOnChain,
 } from "@ethsign/sp-sdk";
-import { privateKeyToAccount } from "viem/accounts";
-const privateKey = "0x3fc9d588dad79b434b28997ff9e7641d2c13f03849835082522ea028fb429541"; // Optional
+import { ethers } from 'ethers';
 
+declare global {
+  interface Window {
+    ethereum: any; // or a more specific type if known
+  }
+}
 
+const clubId = "0x1b4"; // Define clubId when a club is created
+const indexingValue = (Math.floor(Math.random() * 10) + 1).toString(); // Index is used to catogerize attestations, meaning that you can make subgroup in a club(or just make it random
 
 export const AttestationForm = () => {
   const [account, setAccount] = useState<string | null>(null);
-  const [schemaName, setSchemaName] = useState("");
   const [attestationData, setAttestationData] = useState({ Title: "", Level: "" }); // State for attestation data
-  const [delegationPrivateKey, setDelegationPrivateKey] = useState("");
-  const [response, setResponse] = useState("");
   const [recipients, setRecipients] = useState<string[]>([]); // State for recipient addresses
+  const [loading, setLoading] = useState(false); // Optional loading state
+
+  useEffect(() => {
+    const getAccount = async () => {
+      if (window.ethereum) {
+        try {
+          // Request account access if needed
+          await window.ethereum.request({ method: 'eth_requestAccounts' });
+          const provider = new ethers.providers.Web3Provider(window.ethereum);
+          const signer = provider.getSigner();
+          const address = await signer.getAddress();
+          setAccount(address);
+        } catch (error) {
+          console.error("Error getting account:", error);
+        }
+      } else {
+        console.error("Please install MetaMask!");
+      }
+    };
+
+    getAccount();
+  }, []);
 
   const client = new SignProtocolClient(SpMode.OnChain, {
     chain: EvmChains.sepolia,
-    account: privateKeyToAccount(privateKey), // Optional if you are using an injected provider
+    account: account ? { address: account } : undefined, // Use the account address
   });
-
-
-  console.log(client)
   
-  // Create schema Unhide comment for development purpose
-  const handleCreateSchema = async () => {
-    try {
-      const createSchemaRes = await client.createSchema({
-        name: "ClaimStatus", // Ensure this is a string
-        data: [{ 
-          name: "Title", // Correctly formatted with commas
-          type: "string" 
-        }, { 
-            name: "Builder_Address", // Correctly formatted with commas
-            type: "string" 
-          }, { 
-          name: "Level", 
-          type: "string", 
-          enum: ["Basic", "Intermediate", "Expert"] // Define choices
-        }]
-      });
-      setResponse(JSON.stringify(createSchemaRes));
-    } catch (error) {
-      console.error(error);
-      setResponse("Error creating schema");
-    }
-  };
-
   const handleCreateAttestation = async () => {
+    setLoading(true); // Set loading state to true
     // Initialize an array to collect error messages
     const errors: string[] = [];
 
     // Prepare the attestation data
     const attestationPayload = {
-      schemaId: "0x125", // Required
-      recipients: recipients, // Required
-      indexingValue: "1", // Optional, can be omitted if not needed
+      schemaId: clubId, 
+      recipients: recipients, 
+      indexingValue: indexingValue,
       data: {
-        Title: attestationData.Title, // Use state for Title
-        Builder_Address: recipients,
-        Level: attestationData.Level // Use state for Level
-      }, // Required
-      dataLocation: DataLocationOnChain.ONCHAIN, // Optional, adjust as needed
+        Title: attestationData.Title,
+        Level: attestationData.Level 
+      }, 
+      dataLocation: DataLocationOnChain.ONCHAIN,
     };
 
     // Log the fields being sent
@@ -74,32 +70,21 @@ export const AttestationForm = () => {
 
     try {
       const createAttestationRes = await client.createAttestation(attestationPayload);
-      setResponse(JSON.stringify(createAttestationRes));
     } catch (error) {
       console.error("Error creating attestation:", error);
-      setResponse("Error creating attestation");
+    } finally {
+      setLoading(false); // Reset loading state
     }
   };
 
   return (
     <div>
       <div>
-        <h2>Create Schema</h2>
-        <input
-          type="text"
-          placeholder="Schema Name"
-          value={schemaName}
-          onChange={(e) => setSchemaName(e.target.value)}
-          style={{ color: 'black' }} // Added style for input text color
-        />
-        <button onClick={handleCreateSchema}>Create Schema</button>
-      </div>
-      <div>
         <h2>Recipient Addresses</h2>
         <input
           type="text"
           placeholder="Recipient Address"
-          onChange={(e) => setRecipients(e.target.value.split(','))} // Allow multiple addresses separated by commas
+          onChange={(e) => setRecipients(e.target.value.split(','))}
           style={{ color: 'black' }} 
         />
       </div>
@@ -123,11 +108,9 @@ export const AttestationForm = () => {
           <option value="Expert">Expert</option>
         </select>
       </div>
-      <button onClick={handleCreateAttestation}>Create Attestation</button>
-      <div>
-        <h2>Response</h2>
-        <pre>{response}</pre>
-      </div>
+      <button onClick={handleCreateAttestation} disabled={loading}>
+            {loading ? "Attesting..." : "Attest User"}
+          </button>
     </div>
   );
 };

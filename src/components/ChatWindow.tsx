@@ -5,41 +5,11 @@ import styles from './ChatWindow.module.css'
 
 interface ChatWindowProps {
   conversation: any;
-  provider: any;
-  address: string | null;
-  isConnected: boolean;
 }
 
-export default function ChatWindow({ conversation, provider, isConnected, address }: ChatWindowProps) {
+export default function ChatWindow({ conversation }: ChatWindowProps) {
   const [messages, setMessages] = useState<any[]>([])
-  const { xmtpClient } = useXmtp(provider, isConnected.toString(), address)
-
-//   ```
-//   //Start a new conversation
-// async function start_a_new_conversation() {
-//   const canMessage = await check_if_an_address_is_on_the_network();
-//   if (!canMessage) {
-//     console.log("Cannot message this address. Exiting...");
-//     return;
-//   }
-
-//   if (xmtp) {
-//     conversation = await xmtp.conversations.newConversation(WALLET_TO);
-//     console.log("Conversation created", conversation);
-//     console.log(`Conversation created with ${conversation.peerAddress} `);
-//   }
-// }
-
-// //Send a message
-// async function send_a_message(content) {
-//   if (conversation) {
-//     const message = await conversation.send(content);
-//     console.log(`Message sent: "${message.content}"`);
-//     return message;
-//   }
-
-// }
-//   ```
+  const { xmtpClient } = useXmtp()
 
   useEffect(() => {
     let isMounted = true;
@@ -61,7 +31,6 @@ export default function ChatWindow({ conversation, provider, isConnected, addres
 
     return () => {
       isMounted = false;
-      // If there's a way to cancel the stream, do it here
     }
   }, [conversation])
 
@@ -75,8 +44,6 @@ export default function ChatWindow({ conversation, provider, isConnected, addres
     return <div className={styles.noChatSelected}>Select a conversation to start chatting</div>
   }
 
-  console.log(conversation)
-
   return (
     <div className={styles.chatWindow}>
       <div className={styles.chatHeader}>
@@ -85,7 +52,8 @@ export default function ChatWindow({ conversation, provider, isConnected, addres
       <div className={styles.messageList}>
         {messages.map((message, index) => (
           <div key={index} className={`${styles.message} ${xmtpClient && message.senderAddress === xmtpClient.address ? styles.sent : styles.received}`}>
-            {message.content}
+            <div className={styles.messageContent}>{message.content}</div>
+            <div className={styles.messageTime}>{new Date(message.sent).toLocaleTimeString()}</div>
           </div>
         ))}
       </div>

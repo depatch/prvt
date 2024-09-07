@@ -7,7 +7,7 @@ export function useXmtp() {
 	const [xmtpClient, setXmtpClient] = useState<Client | null>(null);
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
-	const { web3auth, isConnected, address, provider } = useWeb3Auth();
+	const { isConnected, address, provider } = useWeb3Auth();
 
 	useEffect(() => {
 		const initXmtp = async () => {
@@ -54,15 +54,26 @@ export function useXmtp() {
 		}
 	};
 
-	const listenForMessages = (conversationId: string, callback: (message: any) => void) => {
+	const listenForMessages = async (conversationId: string, callback: (message: any) => void) => {
 		if (!xmtpClient) return () => {};
-		const stream = xmtpClient.conversations.streamAllMessages();
-		const subscription = stream.subscribe((message) => {
-			if (message.conversation.topic === conversationId) {
-				callback(message);
+		const stream = await xmtpClient.conversations.streamAllMessages();
+		
+		const abortController = new AbortController();
+		
+		(async () => {
+			try {
+				for await (const message of stream) {
+					if (abortController.signal.aborted) break;
+					if (message.conversation.topic === conversationId) {
+						callback(message);
+					}
+				}
+			} catch (error) {
+				console.error('Error in message stream:', error);
 			}
-		});
-		return () => subscription.unsubscribe();
+		})();
+
+		return () => abortController.abort();
 	};
 
 	return { xmtpClient, canMessage, isLoading, error, sendMessage, listenForMessages };

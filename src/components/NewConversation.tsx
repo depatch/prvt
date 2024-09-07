@@ -5,14 +5,11 @@ import { useWeb3Auth } from '../hooks/useWeb3Auth'
 
 interface NewConversationProps {
   onConversationCreated: (conversation: any) => void;
-  provider: any;
-  isConnected: boolean;
-  address: string | null;
 }
 
-export default function NewConversation({ onConversationCreated, provider, isConnected, address }: NewConversationProps) {
+export default function NewConversation({ onConversationCreated }: NewConversationProps) {
   const [recipientAddress, setRecipientAddress] = useState('')
-  const { xmtpClient, canMessage } = useXmtp(provider, isConnected.toString(), address)
+  const { xmtpClient, canMessage } = useXmtp()
 
   const handleStartConversation = async () => {
     if (xmtpClient && recipientAddress) {

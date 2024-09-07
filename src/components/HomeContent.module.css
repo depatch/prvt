@@ -1,85 +1,118 @@
 .container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #14151A;
+  color: #F3F4F6;
 }
 
 .content {
   display: flex;
   flex: 1;
   overflow: hidden;
+  padding: 16px;
+  gap: 16px;
 }
 
 .sidebar {
-  /* Add your styles here */
+  width: 300px;
+  padding: 1.5rem;
+  background-color: #0B0C0E;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  border-radius: 16px;
 }
 
 .agentButtons {
-  /* Add your styles here */
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
 .agentButton {
-  /* Add your styles here */
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background-color: #1F2937;
+  color: white;
+  border: none;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+}
+
+.agentButton:hover {
+  background-color: #374151;
 }
 
 .emoji {
-  /* Add your styles here */
+  font-size: 1.2rem;
 }
 
 .mainContent {
-  /* Add your styles here */
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #0B0C0E;
+  border-radius: 16px;
+  padding: 1.5rem;
 }
 
 .welcomeMessage {
-  /* Add your styles here */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  text-align: center;
 }
 
 .welcomeTitle {
   font-size: 24px;
-  color: #333;
+  color: #F3F4F6;
   margin-bottom: 20px;
 }
 
 .welcomeText, .addressText {
   font-size: 16px;
-  color: #666;
+  color: #9CA3AF;
   margin-bottom: 20px;
 }
 
-.loading, .loadingText {
-  font-size: 18px;
-  color: #888;
+.loading, .loadingText, .errorText {
   text-align: center;
-  margin-top: 50px;
+  margin-top: 2rem;
 }
 
 .errorContainer {
-  background-color: #ffebee;
-  border: 1px solid #ffcdd2;
-  border-radius: 4px;
-  padding: 15px;
-  margin-bottom: 20px;
+  text-align: center;
+  margin-top: 2rem;
 }
 
 .errorText {
-  color: #b71c1c;
+  color: #EF4444;
   font-size: 16px;
   margin-bottom: 10px;
 }
 
 .retryButton {
-  background-color: #2196f3;
+  background-color: #374151;
   color: white;
   border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+  transition: background-color 0.2s;
 }
 
 .retryButton:hover {
-  background-color: #1976d2;
+  background-color: #4B5563;
 }
 
 .contentContainer {
@@ -89,8 +122,8 @@
 
 .chatContainer {
   flex: 2;
-  background-color: #f5f5f5;
-  border-radius: 8px;
+  background-color: #0B0C0E;
+  border-radius: 16px;
   padding: 20px;
 }
 

@@ -31,8 +31,6 @@ const chainConfig = {
   }
 };
 
-const privateKeyProvider = new EthereumPrivateKeyProvider({ config: { chainConfig } });
-
 export function useWeb3Auth() {
   const [web3auth, setWeb3auth] = useState<Web3Auth | null>(null);
   const [provider, setProvider] = useState<any>(null);
@@ -48,7 +46,7 @@ export function useWeb3Auth() {
         const web3auth = new Web3Auth({
           clientId: clientId || "",
           chainConfig,
-          privateKeyProvider,
+          privateKeyProvider : new EthereumPrivateKeyProvider({ config: { chainConfig } }),
         });
         await getWalletConnectV2Adaptere();
         web3auth.configureAdapter(metamaskAdapter);

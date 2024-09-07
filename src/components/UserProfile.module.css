@@ -1,23 +1,29 @@
 .userProfile {
   display: flex;
   align-items: center;
-  padding: 20px;
-  background-color: #f5f5f5;
-  border-radius: 8px;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #1F2937;
+  border-radius: 0.5rem;
 }
 
 .avatar {
-  font-size: 48px;
-  margin-right: 20px;
+  font-size: 1.5rem;
+  background-color: #374151;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
 }
 
 .userDetails {
-  display: flex;
-  flex-direction: column;
+  flex: 1;
 }
 
 .username {
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: #F3F4F6;
 }

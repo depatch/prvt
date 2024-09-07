@@ -1,16 +1,15 @@
 .header {
+  background-color: #0B0C0E;
+  padding: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
-  background-color: #ffffff;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .logo {
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: bold;
-  color: #333;
+  color: #F3F4F6;
 }
 
 .userInfo {

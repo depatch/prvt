@@ -4,6 +4,14 @@ import { Web3Auth } from "@web3auth/modal";
 import { CHAIN_NAMESPACES } from "@web3auth/base";
 import { ethers } from 'ethers';
 import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
+import { WalletConnectModal } from "@walletconnect/modal";
+import {
+  getWalletConnectV2Settings,
+  WalletConnectV2Adapter,
+} from "@web3auth/wallet-connect-v2-adapter";
+import { MetamaskAdapter } from "@web3auth/metamask-adapter";
+
+
 
 const clientId = process.env.NEXT_PUBLIC_WEB3AUTH_CLIENT_ID;
 
@@ -14,7 +22,7 @@ if (!clientId) {
 const chainConfig = {
   chainNamespace: CHAIN_NAMESPACES.EIP155,
   chainId: "0x1", // mainnet
-  rpcTarget: "https://mainnet.infura.io/v3/YOUR_INFURA_PROJECT_ID",
+  rpcTarget: "https://ethereum.blockpi.network/v1/rpc/public",
 };
 
 const privateKeyProvider = new EthereumPrivateKeyProvider({ config: { chainConfig } });
@@ -25,6 +33,17 @@ export function useWeb3Auth() {
   const [address, setAddress] = useState<string | null>(null);
   const [isConnected, setIsConnected] = useState(false);
 
+  const metamaskAdapter = new MetamaskAdapter({
+    clientId,
+    sessionTime: 3600, // 1 hour in seconds
+    web3AuthNetwork: "sapphire_mainnet",
+    chainConfig: {
+      chainNamespace: CHAIN_NAMESPACES.EIP155,
+      chainId: "0x1",
+      rpcTarget: "https://rpc.ankr.com/eth", // This is the public RPC we have added, please pass on your own endpoint while creating an app
+    },
+  });
+
   useEffect(() => {
     const init = async () => {
       try {
@@ -33,7 +52,8 @@ export function useWeb3Auth() {
           chainConfig,
           privateKeyProvider,
         });
-
+        await getWalletConnectV2Adaptere();
+        web3auth.configureAdapter(metamaskAdapter);
         setWeb3auth(web3auth);
 
         await web3auth.initModal();
@@ -45,6 +65,37 @@ export function useWeb3Auth() {
     init();
   }, []);
 
+  const getWalletConnectV2Adaptere = async () => {
+    if (!web3auth) {
+      console.log("web3auth not initialized yet");
+      return;
+    }
+    console.log("Connecting to Web3Auth");
+
+    // Adapter'in zaten başlatılmış olup olmadığını kontrol edin
+    const existingAdapter = web3auth.getAdapter("wallet-connect-v2");
+    if (existingAdapter && existingAdapter.status === "ready") {
+      console.log("WalletConnectV2Adapter is already initialized and ready");
+      return;
+    }
+
+    const defaultWcSettings = await getWalletConnectV2Settings(
+      "eip155",
+      ["1"],
+      "76b1232fbd34d0924ea47d0519bc7844",
+    );
+    const walletConnectModal = new WalletConnectModal({
+      projectId: "76b1232fbd34d0924ea47d0519bc7844",
+    });
+    const walletConnectV2Adapter = new WalletConnectV2Adapter({
+      adapterSettings: { qrcodeModal: walletConnectModal, ...defaultWcSettings.adapterSettings },
+      loginSettings: { ...defaultWcSettings.loginSettings },
+    });
+    web3auth.configureAdapter(walletConnectV2Adapter);
+  }
+
+
+
   const connect = useCallback(async () => {
     if (!web3auth) {
       console.log("web3auth not initialized yet");
@@ -52,7 +103,7 @@ export function useWeb3Auth() {
     }
     const web3authProvider = await web3auth.connect();
     setProvider(web3authProvider);
-    
+
     if (web3authProvider) {
       const ethersProvider = new ethers.BrowserProvider(web3authProvider);
       const signer = await ethersProvider.getSigner();
@@ -73,5 +124,5 @@ export function useWeb3Auth() {
     setIsConnected(false);
   }, [web3auth]);
 
-  return { connect, disconnect, isConnected, address, provider };
+  return { connect, disconnect, getWalletConnectV2Adaptere, isConnected, address, provider };
 }

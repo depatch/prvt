@@ -10,7 +10,7 @@ export function useENS(address: string) {
       if (!address) return;
 
       try {
-        const provider = new ethers.JsonRpcProvider('https://mainnet.infura.io/v3/YOUR_INFURA_PROJECT_ID');
+        const provider = new ethers.JsonRpcProvider('https://ethereum.blockpi.network/v1/rpc/public');
         const name = await provider.lookupAddress(address);
         setEnsName(name);
 

@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ethsign/sp-sdk": "^0.7.3",
     "@headlessui/react": "^2.1.3",
     "@heroicons/react": "^2.1.5",
     "@lit-protocol/auth-helpers": "^6.4.10",

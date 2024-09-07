@@ -7,6 +7,7 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Button } from "@/components/ui/button"
 import { ConnectWalletButton } from "@/components/ConnectWalletButton"
+import { AttestationForm } from "@/components/ClaimAttest"
 
 function ErrorFallback({ error }: { error: Error }) {
   return (
@@ -57,6 +58,8 @@ export default function Home() {
               >
                 Learn More
               </Button>
+
+            <AttestationForm/>
             </div>
             <div className="flex items-center mb-2">
               {[...Array(5)].map((_, i) => (

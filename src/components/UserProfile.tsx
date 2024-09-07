@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
-import { useAuth } from '@/context/AuthContext'
+import React from 'react'
 import styles from './UserProfile.module.css'
 import KintoVerification from './KintoVerification'
+import { useWeb3Auth } from '@/hooks/useWeb3Auth'
 
 export default function UserProfile() {
-  const { user } = useAuth()
-  const [username, setUsername] = useState(user?.address)
+  const { address } = useWeb3Auth();
+  const username = address ? `${address?.substring(0, 4)}...${address?.substring(address.length - 4)}` : 'Unknown';
 
   return (
     <div className={styles.userProfile}>

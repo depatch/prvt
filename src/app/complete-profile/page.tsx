@@ -2,68 +2,38 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import Image from 'next/image'
-import useWeb3Auth from '../hooks/useWeb3Auth'
-import { fetchNFTs } from '../utils/nftFetcher'
+import { useAuth } from '../context/AuthContext'
 import styles from './complete-profile.module.css'
 
 export default function CompleteProfile() {
   const [username, setUsername] = useState('')
-  const [selectedNFT, setSelectedNFT] = useState<string | null>(null) // Update type to string | null
-  const [nfts, setNfts] = useState<{ id: string; name: string; image: string; }[]>([]) // Specify the type for nfts
-  const [isLoading, setIsLoading] = useState(true)
+  const { authState } = useAuth(); // Use authState from context
   const router = useRouter()
-  const { address, isConnected } = useWeb3Auth()
 
   useEffect(() => {
-    if (!isConnected) {
-      router.push('/auth')
-    } else if (address) {
-      loadNFTs()
+    if (!authState.isConnected || !authState.address) {
+      router.push('/auth');
     }
-  }, [isConnected, address, router])
-
-
-  async function loadNFTs() {
-    setIsLoading(true)
-    const userNFTs = await fetchNFTs(address)
-    setNfts(userNFTs) // This will now work
-    setIsLoading(false) // Ensure to set loading to false after fetching
-  }
+  }, [authState, router])
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (!username || !selectedNFT) {
-      alert('Please fill in all fields')
-      return
-    }
-    // TODO: Implement profile creation logic here
-    console.log('Profile completed:', { username, selectedNFT })
-    
-    // For now, we'll just redirect to the home page
+    console.log('Profile completed:', { username, address: authState.address })
     router.push('/home')
   }
 
-  if (!isConnected) {
-    return (
-      <div className={styles.container}>
-        <h1 className={styles.title}>Please connect your wallet</h1>
-        <button onClick={() => router.push('/auth')} className={styles.button}>
-          Go to Authentication
-        </button>
-      </div>
-    )
-  }
-
-  if (isLoading) {
-    return <div className={styles.container}>Loading your NFTs...</div>
+  if (!authState.isConnected || !authState.address) {
+    return <div className={styles.container}>Redirecting to authentication...</div>
   }
 
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Complete Your Profile</h1>
+      <p className={styles.description}>
+        Welcome! Please complete your profile to continue.
+      </p>
       <form onSubmit={handleSubmit} className={styles.form}>
-        <div className={styles.inputGroup}>
+        <div className={styles.formGroup}>
           <label htmlFor="username" className={styles.label}>Username</label>
           <input
             id="username"
@@ -75,21 +45,11 @@ export default function CompleteProfile() {
             required
           />
         </div>
-        <div className={styles.inputGroup}>
-          <label className={styles.label}>Select Profile Picture NFT</label>
-          <div className={styles.nftGrid}>
-            {nfts.map((nft) => (
-              <div
-                key={nft.id}
-                className={`${styles.nftItem} ${selectedNFT === nft.id ? styles.selected : ''}`}
-                onClick={() => setSelectedNFT(nft.id)}
-              >
-                <Image src={nft.image} alt={nft.name} width={100} height={100} className={styles.nftImage} />
-              </div>
-            ))}
-          </div>
+        <div className={styles.formGroup}>
+          <label className={styles.label}>Wallet Address</label>
+          <p className={styles.address}>{authState.address}</p>
         </div>
-        <button type="submit" className={styles.button}>
+        <button type="submit" className={styles.submitButton}>
           Complete Profile
         </button>
       </form>

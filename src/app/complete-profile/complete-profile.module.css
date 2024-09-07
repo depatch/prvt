@@ -2,86 +2,57 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    min-height: 100vh;
     padding: 2rem;
-    background: linear-gradient(to bottom right, var(--background), #1E3A8A);
-  }
-  
-  .title {
-    font-size: 2.5rem;
+}
+
+.title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.description {
+    font-size: 1rem;
     margin-bottom: 2rem;
-    text-align: center;
-    background: linear-gradient(to right, #60A5FA, #34D399);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  
-  .form {
+}
+
+.form {
     width: 100%;
-    max-width: 500px;
-    background-color: rgba(31, 41, 55, 0.5);
-    padding: 2rem;
-    border-radius: 0.5rem;
-  }
-  
-  .inputGroup {
-    margin-bottom: 1.5rem;
-  }
-  
-  .label {
+    max-width: 400px;
+}
+
+.formGroup {
+    margin-bottom: 1rem;
+}
+
+.label {
     display: block;
     margin-bottom: 0.5rem;
-    color: #E5E7EB;
-  }
-  
-  .input {
+}
+
+.input {
     width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #4B5563;
-    border-radius: 0.25rem;
-    background-color: #374151;
-    color: #E5E7EB;
-  }
-  
-  .nftGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-    gap: 1rem;
-    margin-top: 1rem;
-  }
-  
-  .nftItem {
-    cursor: pointer;
-    border: 2px solid transparent;
-    border-radius: 0.25rem;
-    overflow: hidden;
-    transition: border-color 0.3s ease;
-  }
-  
-  .nftItem.selected {
-    border-color: #60A5FA;
-  }
-  
-  .nftImage {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-  }
-  
-  .button {
-    width: 100%;
-    padding: 0.75rem;
-    background-color: var(--primary);
-    color: var(--text);
-    border: none;
-    border-radius: 0.25rem;
+    padding: 0.5rem;
     font-size: 1rem;
-    font-weight: 600;
+}
+
+.address {
+    font-family: monospace;
+    background-color: #f0f0f0;
+    padding: 0.5rem;
+    border-radius: 4px;
+}
+
+.submitButton {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    background-color: #0070f3;
+    color: white;
+    border: none;
+    border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .button:hover {
-    background-color: #2563EB;
-  }
+}
+
+.submitButton:hover {
+    background-color: #0060df;
+}

@@ -1,23 +1,29 @@
 'use client'
 
 import { useState } from 'react'
-import useWeb3Auth from '../hooks/useWeb3Auth'
+import { useWeb3Auth } from '../hooks/useWeb3Auth'
+import { useAuth } from '../context/AuthContext'
 import styles from './ConnectWalletButton.module.css'
 
 export default function ConnectWalletButton() {
   const [isLoading, setIsLoading] = useState(false)
-  const { connect, disconnect, isConnected, address } = useWeb3Auth()
+  const { connect, disconnect } = useWeb3Auth()
+  const { authState, updateAuthState } = useAuth()
 
   const handleClick = async () => {
     setIsLoading(true)
     try {
-      if (isConnected) {
+      if (authState.isConnected) {
         await disconnect()
+        updateAuthState(false, null)
       } else {
-        await connect()
+        const result = await connect()
+        if (result && result.address) {
+          updateAuthState(true, result.address)
+        }
       }
     } catch (error) {
-      console.error('Wallet connection error:', error)
+      console.error('Connection error:', error)
     } finally {
       setIsLoading(false)
     }
@@ -30,9 +36,9 @@ export default function ConnectWalletButton() {
       disabled={isLoading}
     >
       {isLoading
-        ? 'Connecting...'
-        : isConnected
-        ? `Disconnect (${address.slice(0, 6)}...${address.slice(-4)})`
+        ? 'Loading...'
+        : authState.isConnected
+        ? `Disconnect ${authState.address?.slice(0, 6)}...${authState.address?.slice(-4)}` 
         : 'Connect Wallet'}
     </button>
   )

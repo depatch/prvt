@@ -2,45 +2,46 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import useWeb3Auth from '../hooks/useWeb3Auth'
+import { useWeb3Auth } from '../hooks/useWeb3Auth'
+import { useAuth } from '../context/AuthContext'
 import styles from './auth.module.css'
 
 export default function Auth() {
   const [authError, setAuthError] = useState('')
-  const { connect, isConnected, isLoading } = useWeb3Auth()
+  const { connect } = useWeb3Auth()
+  const { authState, updateAuthState } = useAuth()
   const router = useRouter()
 
   useEffect(() => {
-    if (isConnected) {
-      router.push('/complete-profile')
+    if (authState.isConnected && authState.address) {
+      router.push('/home')
     }
-  }, [isConnected, router])
+  }, [authState, router])
 
   const handleAuth = async () => {
+    setAuthError('');
     try {
-      await connect()
+      const result = await connect();
+      if (result && result.address) {
+        updateAuthState(true, result.address);
+        router.push('/home');
+      } else {
+        setAuthError('Failed to authenticate. Please try again.');
+      }
     } catch (error) {
-      console.error('Authentication error:', error)
-      setAuthError('Failed to authenticate. Please try again.')
+      console.error('Authentication error:', error);
+      setAuthError('Failed to authenticate. Please try again.');
     }
-  }
-
-  if (isLoading) {
-    return <div className={styles.container}>Loading...</div>
   }
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Authenticate with Web3</h1>
+      <h1 className={styles.title}>Welcome to PRVT Chat App</h1>
       <p className={styles.description}>
-        Connect your wallet or use social login to access PRVT Chat App
+        Connect your wallet to start chatting securely.
       </p>
-      <button 
-        className={styles.authButton} 
-        onClick={handleAuth}
-        disabled={isConnected}
-      >
-        {isConnected ? 'Connected' : 'Authenticate'}
+      <button onClick={handleAuth} className={styles.authButton}>
+        Connect Wallet
       </button>
       {authError && <p className={styles.error}>{authError}</p>}
     </div>

@@ -1,19 +1,19 @@
-import styles from './Sidebar.module.css'
-import AgentButton from './AgentButton'
-import UserProfile from './UserProfile'
-import ChatList from './ChatList'
-import ClubList from './ClubList'
+import React from 'react';
+import { Client } from '@xmtp/xmtp-js';
 
-export default function Sidebar({ setActiveChat }: { setActiveChat: (chat: any) => void }) {
-  return (
-    <div className={styles.sidebar}>
-      <div className={styles.agentButtons}>
-        <AgentButton type="finder" />
-        <AgentButton type="creator" />
-      </div>
-      <UserProfile />
-      <ChatList setActiveChat={setActiveChat} />
-      <ClubList />
-    </div>
-  )
+interface SidebarProps {
+  setActiveChat: (chat: any) => void;
+  setActiveAgent: (agent: string | null) => void;
+  xmtpClient: Client<any> | null;
 }
+
+const Sidebar: React.FC<SidebarProps> = ({ setActiveChat, setActiveAgent, xmtpClient }) => {
+  // Component logic here
+  return (
+    <div>
+      {/* Component JSX here */}
+    </div>
+  );
+};
+
+export default Sidebar;

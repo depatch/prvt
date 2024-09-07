@@ -1,0 +1,29 @@
+.kintoVerification {
+  margin-top: 0.5rem;
+}
+
+.verified {
+  display: flex;
+  align-items: center;
+  color: #10B981;
+  font-size: 0.8rem;
+}
+
+.verifiedIcon {
+  margin-right: 0.25rem;
+}
+
+.verifyButton {
+  background-color: #4B5563;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: background-color 0.2s;
+}
+
+.verifyButton:hover {
+  background-color: #6B7280;
+}

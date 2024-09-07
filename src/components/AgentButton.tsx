@@ -1,8 +1,13 @@
 import styles from './AgentButton.module.css'
 
-export default function AgentButton({ type }: { type: 'finder' | 'creator' }) {
+interface AgentButtonProps {
+  type: "finder" | "creator";
+  onClick: () => void;
+}
+
+export default function AgentButton({ type, onClick }: AgentButtonProps) {
   return (
-    <button className={styles.agentButton}>
+    <button className={styles.agentButton} onClick={onClick}>
       {type === 'finder' ? 'Club finder agent' : 'Club creator agent'}
     </button>
   )

@@ -1,0 +1,13 @@
+.clubCreatorAgent {
+  padding: 1.5rem;
+  background-color: #1F2937;
+  border-radius: 0.5rem;
+}
+
+.clubCreatorAgent h2 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: #F3F4F6;
+}
+
+/* Add more styles as needed */

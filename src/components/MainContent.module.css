@@ -1,11 +1,9 @@
 .mainContent {
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  padding: 1rem;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.chat {
-  flex: 1;
-  overflow-y: auto;
-}
+/* Add more styles for main content area */

@@ -1,14 +1,17 @@
+import { useState } from 'react'
 import styles from './UserProfile.module.css'
+import KintoVerification from './KintoVerification'
 
 export default function UserProfile() {
+  const [username, setUsername] = useState('Aysi')
+
   return (
     <div className={styles.userProfile}>
-      <img src="/avatar-placeholder.png" alt="User avatar" className={styles.avatar} />
-      <div className={styles.userInfo}>
-        <div className={styles.username}>Aysi</div>
-        <div className={styles.status}>Non-verified</div>
+      <div className={styles.avatar}>👤</div>
+      <div className={styles.userDetails}>
+        <div className={styles.username}>{username}</div>
+        <KintoVerification />
       </div>
-      <button className={styles.connectButton}>Connect Kinto ID</button>
     </div>
   )
 }

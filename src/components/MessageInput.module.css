@@ -1,23 +1,80 @@
+.messageInputContainer {
+  padding: 16px;
+  background-color: var(--background-light);
+  border-top: 1px solid var(--border-color);
+}
+
 .messageInput {
   display: flex;
-  gap: 0.5rem;
-  margin-top: 1rem;
+  padding: 10px;
+  border-top: 1px solid #ccc;
 }
 
 .messageInput input {
-  flex: 1;
-  background-color: #374151;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
-  color: white;
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-right: 10px;
 }
 
 .messageInput button {
-  background-color: #4B5563;
+  padding: 10px 20px;
+  background-color: #007bff;
   color: white;
   border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
+  border-radius: 4px;
   cursor: pointer;
+}
+
+.messageInput button:hover {
+  background-color: #0056b3;
+}
+
+.input {
+  flex: 1;
+  background-color: transparent;
+  border: none;
+  padding: 0.5rem;
+  color: white;
+  font-size: 1rem;
+}
+
+.input:focus {
+  outline: none;
+}
+
+.input::placeholder {
+  color: #9CA3AF;
+}
+
+.attachButton,
+.sendButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  transition: color 0.2s;
+}
+
+.attachButton:hover,
+.sendButton:hover {
+  color: #D1D5DB;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  color: #9CA3AF;
+}
+
+.sendButton.active .icon {
+  color: #60A5FA;
+}
+
+.sendButton:disabled {
+  cursor: not-allowed;
 }

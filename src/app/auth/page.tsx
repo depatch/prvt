@@ -2,36 +2,32 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { useWeb3Auth } from '../hooks/useWeb3Auth'
-import { useAuth } from '../context/AuthContext'
+import { useAuth } from '../../context/AuthContext'
 import styles from './auth.module.css'
 
 export default function Auth() {
   const [authError, setAuthError] = useState('')
-  const { connect } = useWeb3Auth()
-  const { authState, updateAuthState } = useAuth()
+  const { isConnected, address, login, isLoading } = useAuth()
   const router = useRouter()
 
   useEffect(() => {
-    if (authState.isConnected && authState.address) {
+    if (isConnected && address) {
       router.push('/home')
     }
-  }, [authState, router])
+  }, [isConnected, address, router])
 
   const handleAuth = async () => {
     setAuthError('');
     try {
-      const result = await connect();
-      if (result && result.address) {
-        updateAuthState(true, result.address);
-        router.push('/home');
-      } else {
-        setAuthError('Failed to authenticate. Please try again.');
-      }
+      await login();
     } catch (error) {
       console.error('Authentication error:', error);
       setAuthError('Failed to authenticate. Please try again.');
     }
+  }
+
+  if (isLoading) {
+    return <div>Loading...</div>
   }
 
   return (

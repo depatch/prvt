@@ -1,34 +1,21 @@
-import Link from 'next/link'
-import ConnectWalletButton from './components/ConnectWalletButton'
-import styles from './page.module.css'
+import Link from 'next/link';
+import dynamic from 'next/dynamic';
+import styles from './page.module.css';
+
+const DynamicConnectWalletButton = dynamic(() => import('../components/ConnectWalletButton'), { ssr: false });
 
 export default function Home() {
   return (
-    <main className={styles.main}>
-      <div className={styles.container}>
-        <h1 className={styles.title}>Welcome to PRVT Chat App</h1>
-        <p className={styles.description}>
-          Experience secure, blockchain-integrated communication with our cutting-edge platform.
-        </p>
-        <div className={styles.features}>
-          <div className={styles.feature}>
-            <h3>Encrypted Chats</h3>
-            <p>End-to-end encrypted messaging for ultimate privacy</p>
-          </div>
-          <div className={styles.feature}>
-            <h3>NFT-Gated Clubs</h3>
-            <p>Exclusive communities based on NFT ownership</p>
-          </div>
-          <div className={styles.feature}>
-            <h3>Decentralized Identity</h3>
-            <p>Control your data with blockchain-based identity</p>
-          </div>
-        </div>
-        <div className={styles.buttonContainer}>
-          <Link href="/auth" className={styles.launchButton}>Launch App</Link>
-          <ConnectWalletButton />
+    <main className={`${styles.main} flex min-h-screen flex-col items-center justify-between p-24`}>
+      <div className={`${styles.contentContainer} z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex`}>
+        <h1 className={`${styles.welcomeHeader} text-4xl font-bold mb-8`}>Welcome to PRVT Chat App</h1>
+        <p className={`${styles.description} mb-4`}>Secure, blockchain-integrated communication</p>
+        <div className={`${styles.buttonContainer} flex space-x-4`}>
+          <Link href="/home" className={`${styles.launchAppButton} bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded`}>
+            Launch App
+          </Link>
         </div>
       </div>
     </main>
-  )
+  );
 }

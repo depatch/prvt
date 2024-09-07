@@ -1,13 +1,16 @@
-import styles from './Header.module.css'
+import React from 'react';
+import styles from './Header.module.css';
 
-export default function Header() {
+const Header: React.FC = () => {
   return (
     <header className={styles.header}>
       <div className={styles.logo}>○ Private</div>
       <div className={styles.userInfo}>
-        <span>aysipixie.eth</span>
-        {/* Add user avatar and dropdown here */}
+        <span className={styles.userName}>aysipixie.eth</span>
+        <span className={styles.userEmoji}>👤</span>
       </div>
     </header>
-  )
-}
+  );
+};
+
+export default Header;

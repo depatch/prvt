@@ -32,6 +32,7 @@ export function useWeb3Auth() {
   const [provider, setProvider] = useState<any>(null);
   const [address, setAddress] = useState<string | null>(null);
   const [isConnected, setIsConnected] = useState(false);
+  const [isInitialized, setIsInitialized] = useState(false);
 
   const metamaskAdapter = new MetamaskAdapter({
     clientId,
@@ -57,8 +58,25 @@ export function useWeb3Auth() {
         setWeb3auth(web3auth);
 
         await web3auth.initModal();
+        setIsInitialized(true);
+
+        // Check if there's an existing connection
+        if (web3auth.connected) {
+          const web3authProvider = web3auth.provider;
+          setProvider(web3authProvider);
+
+          if (web3authProvider) {
+            const ethersProvider = new ethers.BrowserProvider(web3authProvider);
+            const signer = await ethersProvider.getSigner();
+            const addr = await signer.getAddress();
+            setAddress(addr);
+            setIsConnected(true);
+          }
+        }
       } catch (error) {
         console.error(error);
+      } finally {
+        setIsInitialized(true);
       }
     };
 
@@ -124,5 +142,13 @@ export function useWeb3Auth() {
     setIsConnected(false);
   }, [web3auth]);
 
-  return { connect, disconnect, getWalletConnectV2Adaptere, isConnected, address, provider };
+  return { 
+    connect, 
+    disconnect, 
+    getWalletConnectV2Adaptere, 
+    isConnected, 
+    address, 
+    provider,
+    isInitialized
+  };
 }

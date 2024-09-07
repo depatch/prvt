@@ -15,7 +15,7 @@ import Header from './Header';
 import styles from './HomeContent.module.css';
 
 const HomeContent: React.FC = () => {
-  const { isConnected, address, provider, isInitialized, connect } = useWeb3Auth();
+  const { isConnected, address, provider, isInitialized, connect, error } = useWeb3Auth();
   const { messages, sendMessage, chatId } = useGaladriel();
   const [activeChat, setActiveChat] = useState<any>(null);
   const [activeAgent, setActiveAgent] = useState<string | null>(null);
@@ -28,6 +28,13 @@ const HomeContent: React.FC = () => {
       setIsXmtpInitializing(false);
     }
   }, [isXmtpLoading, xmtpClient, xmtpError]);
+
+  useEffect(() => {
+    if (error) {
+      console.error("Web3Auth error:", error);
+      // You can add additional error handling here, such as displaying a toast notification
+    }
+  }, [error]);
 
   if (!isInitialized) {
     return <div className={styles.loading}>Loading...</div>;
@@ -42,6 +49,7 @@ const HomeContent: React.FC = () => {
             <h2>Welcome to the PRVT Chat App</h2>
             <p>Please connect your wallet to access the app.</p>
             <ConnectWalletButton onClick={connect} />
+            {error && <p className={styles.errorMessage}>{error}</p>}
           </div>
         </div>
       </div>
@@ -90,32 +98,8 @@ const HomeContent: React.FC = () => {
           )}
         </main>
       </div>
-      <h2 className={styles.welcomeTitle}>Welcome to the PRVT Chat App</h2>
-      <p className={styles.addressText}>Connected address: {address}</p>
-
-      <KintoVerification />
-      <button onClick={() => sendMessage("Test message" + messages.length + chatId)}>Send Test Message</button> {/* Test butonu ekleyin */}
-      {isXmtpInitializing ? (
-        <p className={styles.loadingText}>Initializing XMTP client...</p>
-      ) : xmtpError ? (
-        <div className={styles.errorContainer}>
-          <p className={styles.errorText}>Error: {xmtpError}</p>
-          <button className={styles.retryButton} onClick={() => window.location.reload()}>Retry</button>
-        </div>
-      ) : xmtpClient ? (
-        <div className={styles.contentContainer}>
-          <div className={styles.chatContainer}>
-            <ChatList setActiveChat={setActiveChat} provider={provider} isConnected={isConnected} address={address}/>
-            <ChatWindow conversation={activeChat} provider={provider} isConnected={isConnected} address={address}/>
-          </div>
-          <div className={styles.agentContainer}>
-            <ClubFinderAgent />
-            <ClubCreatorAgent />
-          </div>
-        </div>
-      ) : (
-        <p className={styles.errorText}>Failed to initialize XMTP client. Please check your connection and try again.</p>
-      )}
+      {/* <KintoVerification />
+      <button onClick={() => sendMessage("Test message" + messages.length + chatId)}>Send Test Message</button> Test butonu ekleyin */}
     </div>
   );
 };

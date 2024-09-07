@@ -1,9 +1,11 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
+import { useAuth } from '@/context/AuthContext'
 import styles from './UserProfile.module.css'
 import KintoVerification from './KintoVerification'
 
 export default function UserProfile() {
-  const [username, setUsername] = useState('Aysi')
+  const { user } = useAuth()
+  const [username, setUsername] = useState(user?.address)
 
   return (
     <div className={styles.userProfile}>

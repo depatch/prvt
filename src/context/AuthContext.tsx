@@ -7,6 +7,11 @@ import { useWeb3Auth } from '../hooks/useWeb3Auth';
 // Add this type definition
 type User = {
   isKintoVerified: boolean;
+  address: string;
+  username: string;
+  email: string;
+  profilePicture: string;
+  bio: string;
   // Add other user properties as needed
 };
 

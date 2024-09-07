@@ -1,9 +1,8 @@
 .container {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  background-color: #111827;
-  color: #F3F4F6;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
 }
 
 .content {
@@ -34,4 +33,70 @@
 
 .welcomeMessage {
   /* Add your styles here */
+}
+
+.welcomeTitle {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.welcomeText, .addressText {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.loading, .loadingText {
+  font-size: 18px;
+  color: #888;
+  text-align: center;
+  margin-top: 50px;
+}
+
+.errorContainer {
+  background-color: #ffebee;
+  border: 1px solid #ffcdd2;
+  border-radius: 4px;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.errorText {
+  color: #b71c1c;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.retryButton {
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.retryButton:hover {
+  background-color: #1976d2;
+}
+
+.contentContainer {
+  display: flex;
+  gap: 20px;
+}
+
+.chatContainer {
+  flex: 2;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.agentContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }

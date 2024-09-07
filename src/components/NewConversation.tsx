@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useXmtp } from '../hooks/useXMTP'
 import styles from './NewConversation.module.css'
+import { useWeb3Auth } from '../hooks/useWeb3Auth'
 
 interface NewConversationProps {
   onConversationCreated: (conversation: any) => void;
@@ -9,17 +10,23 @@ interface NewConversationProps {
 
 export default function NewConversation({ onConversationCreated, provider }: NewConversationProps) {
   const [recipientAddress, setRecipientAddress] = useState('')
-  const { xmtpClient } = useXmtp(provider)
+  const { xmtpClient, canMessage } = useXmtp(useWeb3Auth().address, useWeb3Auth().provider)
 
   const handleStartConversation = async () => {
     if (xmtpClient && recipientAddress) {
       try {
+        // Check if the recipient is on the XMTP network
+        const canMessageRecipient = await canMessage(recipientAddress)
+        if (!canMessageRecipient) {
+          throw new Error('Recipient is not on the XMTP network')
+        }
+
         const conversation = await xmtpClient.conversations.newConversation(recipientAddress)
         onConversationCreated(conversation)
         setRecipientAddress('')
       } catch (error) {
         console.error('Error starting conversation:', error)
-        alert('Failed to start conversation. Please check the address and try again.')
+        alert(error instanceof Error ? error.message : 'Failed to start conversation. Please check the address and try again.')
       }
     }
   }

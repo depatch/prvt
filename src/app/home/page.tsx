@@ -7,8 +7,8 @@ const DynamicHomeContent = dynamic(() => import('../../components/HomeContent'),
 
 export default function HomePage() {
   return (
-    <main>
-      <h1>PRVT Chat App Dashboard</h1>
+    <main className={styles.main}>
+      <h1 className={styles.title}>PRVT Chat App Dashboard</h1>
       <DynamicHomeContent />
     </main>
   );

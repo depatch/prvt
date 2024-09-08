@@ -1,12 +1,11 @@
 .mainContent {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  height: 100%;
+  flex-direction: row; /* Changed from column */
+  background-color: var(--background-surface-default, #0B0C0E);
+  border-radius: var(--radius-2xl, 16px);
+  overflow: hidden;
+  padding: 1.5rem;
+  width: 600px;
 }
 
 /* Add more styles for main content area */

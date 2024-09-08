@@ -1,108 +1,56 @@
-.main {
+.contentContainer {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 6rem;
   min-height: 100vh;
+  color: #FFFFFF;
 }
 
-.container {
-  max-width: 900px;
-  text-align: center;
+.main {
+  display: flex;
+  flex: 1;
+  padding: 2rem;
+  justify-content: space-between;
+  align-items: center;
+  background-color: black;
+}
+
+.content {
+  flex: 1;
+  max-width: 50%;
 }
 
 .title {
-  font-size: 3.5rem;
+  font-size: 3rem;
+  font-weight: bold;
   margin-bottom: 1rem;
-  background: linear-gradient(to right, #60A5FA, #34D399);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 
-.description {
-  display: inherit;
-  justify-content: inherit;
-  align-items: inherit;
-  font-size: 0.85rem;
-  max-width: var(--max-width);
-  width: 100%;
-  z-index: 2;
-  font-family: var(--font-mono);
+.tags {
+  color: #A0AEC0;
+  margin-bottom: 2rem;
 }
 
-.description a {
+
+.communityInfo {
+  display: flex;
+  align-items: center;
+}
+
+
+.illustration {
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 0.5rem;
+  color: #FFFFFF;
 }
 
-.description p {
-  position: relative;
-  margin: 0;
-  padding: 1rem;
-  background-color: rgba(var(--callout-rgb), 0.5);
-  border: 1px solid rgba(var(--callout-border-rgb), 0.3);
-  border-radius: var(--border-radius);
+.illustrationSvg {
+  max-width: 100%;
+  height: auto;
 }
 
-.code {
-  font-weight: 700;
-  font-family: var(--font-mono);
-}
 
-.features {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 3rem;
-}
-
-.feature {
-  flex-basis: 30%;
-  padding: 1.5rem;
-  background-color: rgba(31, 41, 55, 0.5);
-  border-radius: 0.5rem;
-  transition: transform 0.3s ease;
-}
-
-.feature:hover {
-  transform: translateY(-5px);
-}
-
-.feature h3 {
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
-  color: #60A5FA;
-}
-
-.feature p {
-  font-size: 0.9rem;
-  color: #D1D5DB;
-}
-
-.buttonContainer {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-}
-
-.launchButton {
-  background-color: var(--primary);
-  color: var(text);
-  border: none;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
-  font-weight: 600;
-  border-radius: 0.25rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  text-decoration: none;
-}
-
-.launchButton:hover {
-  background-color: #2563EB;
-}
 
 @media (max-width: 768px) {
   .title {

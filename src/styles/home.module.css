@@ -1,9 +1,11 @@
 .container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  justify-content: flex-start;
   color: #F3F4F6;
   background-color: #0B0C0E;
+  max-height: 70vh;
+  min-height: 70vh;
 }
 
 .main {
@@ -18,8 +20,6 @@
   overflow: hidden;
   padding: 16px;
   gap: 16px;
-  width: 100%;
-  justify-content: flex-start;
 }
 
 .sidebar {
@@ -30,7 +30,7 @@
   flex-direction: column;
   gap: 1.5rem;
   border-radius: var(--radius-2xl, 16px);
-  max-height: 100vh;
+  width: 400px;
 }
 
 .mainContent {
@@ -39,9 +39,9 @@
   flex-direction: column;
   background-color: var(--background-surface-default, #0B0C0E);
   border-radius: var(--radius-2xl, 16px);
-  overflow: hidden;
   justify-content: flex-start;
   padding: 1.5rem;
+  width: 800px;
 }
 
 .connectWalletContainer {

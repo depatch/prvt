@@ -13,7 +13,6 @@ export default function HomePage() {
 
   return (
     <div className={styles.container} style={{ background: 'var(--background-button-primary-hover, #1F2228)' }}>
-      <Header />
       <main className={styles.main} style={{
         padding: 'var(--spacing-32, 32px) var(--spacing-120, 120px)',
         flexDirection: 'column',
@@ -34,3 +33,4 @@ export default function HomePage() {
     </div>
   );
 }
+

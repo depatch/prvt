@@ -98,7 +98,7 @@ export function useWeb3Auth() {
     initializeWeb3Auth();
   }, [initializeWeb3Auth]);
 
-  const connect = useCallback(async () => {
+  const connectWallet = useCallback(async () => {
     if (!web3auth) {
       console.log("web3auth not initialized yet");
       setError("Web3Auth not initialized. Please try again.");
@@ -115,6 +115,10 @@ export function useWeb3Auth() {
         setAddress(addr);
         setIsConnected(true);
         setError(null);
+
+        // Fetch additional user info if needed
+        const userInfo = await web3auth.getUserInfo();
+        // You can set additional user info here or in the AuthContext
       }
     } catch (error) {
       console.error("Error connecting to Web3Auth:", error);
@@ -134,12 +138,12 @@ export function useWeb3Auth() {
   }, [web3auth]);
 
   return { 
-    connect, 
     disconnect, 
     isConnected, 
     address, 
     provider,
     isInitialized,
-    error
+    error,
+    connectWallet
   };
 }

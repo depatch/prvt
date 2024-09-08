@@ -39,7 +39,10 @@ const HomeContent: React.FC = () => {
 
   return (
     <div className={styles.content}>
-      <aside className={styles.sidebar}>
+      <aside className={styles.sidebar} style={{
+        borderRadius: 'var(--radius-2xl, 16px)',
+        background: 'var(--background-surface-default, #0B0C0E)'
+      }}>
         <UserProfile />
         <ChatList setActiveChat={setActiveChat} />
         <ClubList />
@@ -52,7 +55,14 @@ const HomeContent: React.FC = () => {
           </button>
         </div>
       </aside>
-      <main className={styles.mainContent}>
+      <main className={styles.mainContent} style={{
+        borderRadius: 'var(--radius-2xl, 16px)',
+        background: 'var(--background-surface-default, #0B0C0E)',
+        flex: '1',
+        display: 'flex',
+        flexDirection: 'column',
+        overflow: 'hidden'
+      }}>
         {isXmtpInitializing ? (
           <p className={styles.loadingText}>Initializing XMTP client...</p>
         ) : xmtpError ? (

@@ -23,6 +23,7 @@
     "@web3auth/wallet-connect-v2-adapter": "^8.12.4",
     "@xmtp/xmtp-js": "^13.0.0",
     "abitype": "^1.0.6",
+    "alchemy-sdk": "^3.4.1",
     "ethers": "^6.13.2",
     "next": "14.2.8",
     "pino-pretty": "^11.2.2",

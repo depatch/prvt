@@ -60,6 +60,80 @@
     transition: background-color 0.3s ease;
 }
 
-.submitButton:hover {
+.submitButton:hover:not(.disabled) {
     background-color: #365899;
+}
+
+.submitButton.disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.nftGrid {
+    display: flex;
+    flex-direction: row;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.nftItem {
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.nftItem:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.nftItem.selected {
+    border-color: #007bff;
+    background-color: rgba(0, 123, 255, 0.1);
+}
+
+.nftImageContainer {
+    width: 100%;
+    padding-bottom: 100%; /* 1:1 Aspect Ratio */
+    position: relative;
+    overflow: hidden;
+    border-radius: 4px;
+}
+
+.nftImage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.nftName {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.loadingText, .noNftsText, .error {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.error {
+    color: #dc3545;
+}
+
+.selectedNFT {
+    margin-top: 1rem;
+    padding: 0.5rem;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    text-align: center;
 }

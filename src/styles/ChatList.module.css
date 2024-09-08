@@ -1,7 +1,6 @@
 .chatList {
   width: 100%;
-  max-width: 300px;
-  border-right: 1px solid #ccc;
+  overflow-y: hidden;
 }
 
 .emptyState {
@@ -14,6 +13,13 @@
   list-style-type: none;
   padding: 0;
   margin: 0;
+  overflow-y: auto;
+  scrollbar-width: none;  /* For Firefox */
+  -ms-overflow-style: none;  /* For Internet Explorer and Edge */
+}
+
+.conversations::-webkit-scrollbar {
+  display: none;  /* For Chrome, Safari, and Opera */
 }
 
 .conversationItem {

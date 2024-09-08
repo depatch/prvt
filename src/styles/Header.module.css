@@ -3,24 +3,21 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: #1F2937;
-  border-bottom: 1px solid #374151;
+  background-color: var(--background-surface-default, #0B0C0E);
+}
+
+.logoContainer {
+  flex: 1;
 }
 
 .logo {
-  font-weight: bold;
-  font-size: 1.2rem;
+  width: 150px;  /* Logo boyutunu artırın */
+  height: auto;  /* Oranı koruyarak yüksekliği otomatik ayarlayın */
 }
 
-.userInfo {
+.privateToggle {
   display: flex;
   align-items: center;
-}
-
-.userName {
-  margin-right: 10px;
-}
-
-.userEmoji {
-  font-size: 20px;
+  color: white;
+  margin-right: 1rem;
 }

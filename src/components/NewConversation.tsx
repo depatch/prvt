@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useXmtp } from '../hooks/useXMTP'
-import styles from './NewConversation.module.css'
-import { useWeb3Auth } from '../hooks/useWeb3Auth'
+import styles from '../styles/NewConversation.module.css'
 
 interface NewConversationProps {
   onConversationCreated: (conversation: any) => void;

@@ -1,18 +1,21 @@
 'use client';
 
 import React, { useState } from 'react';
+import styles from '../styles/ConnectWalletButton.module.css';
+import { useWeb3Auth } from '@/hooks/useWeb3Auth';
+import { useRouter } from 'next/navigation';
 
-interface ConnectWalletButtonProps {
-  onClick: () => Promise<void>;
-}
-
-const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({ onClick }) => {
+const ConnectWalletButton: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const { connect } = useWeb3Auth();
+  const router = useRouter();
 
   const handleClick = async () => {
     setIsLoading(true);
     try {
-      await onClick();
+      await connect();
+      // Refresh the page after successful connection
+      router.refresh();
     } catch (error) {
       console.error('Failed to connect wallet:', error);
       // You might want to show an error message to the user here
@@ -22,7 +25,7 @@ const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({ onClick }) =>
   };
 
   return (
-    <button onClick={handleClick} disabled={isLoading}>
+    <button onClick={handleClick} disabled={isLoading} className={styles.connectWalletButton}>
       {isLoading ? 'Connecting...' : 'Connect Wallet'}
     </button>
   );

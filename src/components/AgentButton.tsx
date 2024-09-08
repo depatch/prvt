@@ -1,4 +1,4 @@
-import styles from './AgentButton.module.css'
+import styles from '../styles/AgentButton.module.css'
 
 interface AgentButtonProps {
   type: "finder" | "creator";

@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './UserProfile.module.css'
+import styles from '../styles/UserProfile.module.css'
 import KintoVerification from './KintoVerification'
 import { useWeb3Auth } from '@/hooks/useWeb3Auth'
 

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useAuth } from '../context/AuthContext'
-import styles from './KintoVerification.module.css'
+import styles from '../styles/KintoVerification.module.css'
 
 export default function KintoVerification() {
   const [isVerified, setIsVerified] = useState(false)

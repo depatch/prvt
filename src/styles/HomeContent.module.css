@@ -15,7 +15,6 @@
 }
 
 .sidebar {
-  width: 300px;
   padding: 1.5rem;
   background-color: #0B0C0E;
   overflow-y: auto;
@@ -59,7 +58,6 @@
   flex-direction: column;
   background-color: #0B0C0E;
   border-radius: 16px;
-  padding: 1.5rem;
 }
 
 .welcomeMessage {
@@ -132,4 +130,10 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
+
+.homeContent {
+  display: flex;
+  justify-content: flex-start;
+  /* ... other properties ... */
 }

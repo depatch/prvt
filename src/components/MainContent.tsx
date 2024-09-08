@@ -1,6 +1,6 @@
 import React from 'react';
 import { Client } from '@xmtp/xmtp-js';
-import styles from './MainContent.module.css';
+import styles from '../styles/MainContent.module.css';
 
 export interface MainContentProps {
   activeChat: any;
@@ -11,7 +11,7 @@ export interface MainContentProps {
 const MainContent: React.FC<MainContentProps> = ({ activeChat, activeAgent, xmtpClient }) => {
   // Component logic here
   return (
-    <div>
+    <div className={styles.mainContent}>
       {/* Component JSX here */}
     </div>
   );

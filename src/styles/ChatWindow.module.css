@@ -1,0 +1,112 @@
+.chatWindow {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.chatHeader {
+  background-color: #1F2937;
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-action-normal, rgba(255, 255, 255, 0.18));
+  border-radius: 1rem;
+}
+
+.chatHeader h2 {
+  color: #F3F4F6;
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.messageListWrapper {
+  flex-grow: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column-reverse;
+  padding-right: 8px; /* Add padding to compensate for scrollbar width */
+  margin-right: -8px; /* Negative margin to offset the padding */
+}
+
+.messageListWrapper::-webkit-scrollbar {
+  width: 8px;
+  background: transparent;
+}
+
+.messageListWrapper::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.messageListWrapper::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.messageListWrapper:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.messageListWrapper::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* For Firefox */
+.messageListWrapper {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+}
+
+.messageListWrapper:hover {
+  scrollbar-color: rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.1);
+}
+
+.messageList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.message {
+  max-width: 70%;
+  padding: 0.75rem;
+  border-radius: 1rem;
+}
+
+.sent {
+  align-self: flex-end;
+  background-color: #3B82F6;
+  color: #FFFFFF;
+  border-bottom-right-radius: 0.25rem;
+}
+
+.received {
+  align-self: flex-start;
+  background-color: #374151;
+  color: #F3F4F6;
+  border-bottom-left-radius: 0.25rem;
+}
+
+.messageContent {
+  margin-bottom: 0.25rem;
+}
+
+.messageTime {
+  font-size: 0.75rem;
+  opacity: 0.7;
+  text-align: right;
+}
+
+.inputWrapper {
+  padding: 1rem;
+  background-color: var(--background-surface-default, #0B0C0E);
+}
+
+.noChatSelected {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: #9CA3AF;
+  font-size: 1.2rem;
+}

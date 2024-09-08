@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './ClubCreatorAgent.module.css';
+import styles from '../styles/ClubCreatorAgent.module.css';
 
 const ClubCreatorAgent: React.FC = () => {
   return (

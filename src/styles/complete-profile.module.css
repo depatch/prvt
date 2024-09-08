@@ -1,23 +1,27 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    max-width: 400px;
+    margin: 0 auto;
     padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .title {
-    font-size: 2rem;
+    font-size: 1.5rem;
     margin-bottom: 1rem;
+    color: #333;
 }
 
 .description {
     font-size: 1rem;
     margin-bottom: 2rem;
+    color: #666;
 }
 
 .form {
-    width: 100%;
-    max-width: 400px;
+    display: flex;
+    flex-direction: column;
 }
 
 .formGroup {
@@ -27,32 +31,35 @@
 .label {
     display: block;
     margin-bottom: 0.5rem;
+    color: #333;
 }
 
 .input {
     width: 100%;
     padding: 0.5rem;
     font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
 .address {
     font-family: monospace;
-    background-color: #f0f0f0;
+    background-color: #f0f2f5;
     padding: 0.5rem;
     border-radius: 4px;
 }
 
 .submitButton {
-    width: 100%;
-    padding: 0.75rem;
+    padding: 0.5rem 1rem;
     font-size: 1rem;
-    background-color: #0070f3;
+    background-color: #4267B2;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .submitButton:hover {
-    background-color: #0060df;
+    background-color: #365899;
 }

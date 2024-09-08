@@ -4,21 +4,27 @@
   border-top: 1px solid var(--border-color);
 }
 
+.messageInputWrapper {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem;
+  background-color: var(--background-surface-default, #0B0C0E);
+}
+
 .messageInput {
   display: flex;
-  padding: 1rem;
-  background-color: #1F2937;
-  border-top: 1px solid #374151;
+  gap: 0.5rem;
 }
 
 .messageInput input {
-  flex: 1;
-  padding: 0.75rem;
-  border: none;
-  border-radius: 1.5rem;
-  background-color: #374151;
-  color: #F3F4F6;
-  font-size: 1rem;
+  flex-grow: 1;
+  padding: 0.5rem;
+  border: 1px solid var(--border-action-normal, rgba(255, 255, 255, 0.18));
+  border-radius: 0.25rem;
+  background-color: var(--background-surface-default, #0B0C0E);
+  color: var(--text-primary, #F3F4F6);
 }
 
 .messageInput input:focus {
@@ -27,19 +33,17 @@
 }
 
 .messageInput button {
-  margin-left: 0.5rem;
-  padding: 0.75rem 1.5rem;
+  padding: 0.5rem 1rem;
+  background-color: var(--background-button-primary-default, #3B82F6);
+  color: white;
   border: none;
-  border-radius: 1.5rem;
-  background-color: #3B82F6;
-  color: #FFFFFF;
-  font-size: 1rem;
+  border-radius: 0.25rem;
   cursor: pointer;
   transition: background-color 0.2s;
 }
 
 .messageInput button:hover {
-  background-color: #2563EB;
+  background-color: var(--background-button-primary-hover, #2563EB);
 }
 
 .input {

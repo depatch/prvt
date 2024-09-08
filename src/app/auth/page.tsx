@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '../../context/AuthContext'
-import styles from './auth.module.css'
+import styles from '../../styles/auth.module.css'
 
 export default function Auth() {
   const [authError, setAuthError] = useState('')
@@ -31,7 +31,13 @@ export default function Auth() {
   }
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} style={{
+      padding: 'var(--spacing-32, 32px) var(--spacing-120, 120px)',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      gap: '24px'
+    }}>
       <h1 className={styles.title}>Welcome to PRVT Chat App</h1>
       <p className={styles.description}>
         Connect your wallet to start chatting securely.

@@ -7,7 +7,7 @@ import styles from './complete-profile.module.css'
 
 export default function CompleteProfile() {
   const [username, setUsername] = useState('')
-  const { authState } = useAuth(); // Use authState from context
+  const authState = useAuth(); // Use authState from context
   const router = useRouter()
 
   useEffect(() => {
@@ -27,7 +27,13 @@ export default function CompleteProfile() {
   }
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} style={{
+      padding: 'var(--spacing-32, 32px) var(--spacing-120, 120px)',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      gap: '24px'
+    }}>
       <h1 className={styles.title}>Complete Your Profile</h1>
       <p className={styles.description}>
         Welcome! Please complete your profile to continue.

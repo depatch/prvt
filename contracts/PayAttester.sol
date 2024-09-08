@@ -5,25 +5,7 @@ import { Ownable } from "@openzeppelin/contracts/access/Ownable.sol";
 import { IERC20 } from "@openzeppelin/contracts/interfaces/IERC20.sol";
 import { ISPHook } from "@ethsign/sign-protocol-evm/src/interfaces/ISPHook.sol";
 
-// @dev This contract manages the whitelist. We are separating the whitelist logic from the hook to make things easier
-// to read.
-contract WhitelistMananger is Ownable {
-    mapping(address attester => bool allowed) public whitelist;
-
-    error UnauthorizedAttester();
-
-    constructor() Ownable(_msgSender()) { }
-
-    function setWhitelist(address attester, bool allowed) external onlyOwner {
-        whitelist[attester] = allowed;
-    }
-
-    function _checkAttesterWhitelistStatus(address attester) internal view {
-        // solhint-disable-next-line custom-errors
-        require(whitelist[attester], "Unauthorized attester");
-    }
-
-    
+contract PayAttestorFee {
 
     function _payAttester(address payable attester) public payable {
         require(msg.value == 0.001 ether, "Incorrect payment amount");
@@ -35,7 +17,7 @@ contract WhitelistMananger is Ownable {
     }
 
 // @dev This contract implements the actual schema hook.
-contract WhitelistHook is ISPHook, WhitelistMananger {
+contract PayAttester is ISPHook, PayAttestorFee {
     function didReceiveAttestation(
         address attester,
         uint64, // schemaId
@@ -45,7 +27,6 @@ contract WhitelistHook is ISPHook, WhitelistMananger {
         external
         payable
     {
-        _checkAttesterWhitelistStatus(attester);
         _payAttester(payable(attester));
     }
 
@@ -60,7 +41,6 @@ contract WhitelistHook is ISPHook, WhitelistMananger {
         external
         view
     {
-        _checkAttesterWhitelistStatus(attester);
 
     }
 
@@ -73,7 +53,7 @@ contract WhitelistHook is ISPHook, WhitelistMananger {
         external
         payable
     {
-        _checkAttesterWhitelistStatus(attester);
+
     }
 
     function didReceiveRevocation(
@@ -87,6 +67,5 @@ contract WhitelistHook is ISPHook, WhitelistMananger {
         external
         view
     {
-        _checkAttesterWhitelistStatus(attester);
     }
 }

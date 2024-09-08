@@ -14,7 +14,6 @@ declare global {
 }
 
 const clubId = "0x1b4"; // Define clubId when a club is created
-const indexingValue = (Math.floor(Math.random() * 10) + 1).toString(); // Index is used to catogerize attestations, meaning that you can make subgroup in a club(or just make it random
 
 export const AttestationForm = () => {
   const [account, setAccount] = useState<string | null>(null);
@@ -53,11 +52,17 @@ export const AttestationForm = () => {
     // Initialize an array to collect error messages
     const errors: string[] = [];
 
+    const indexingValueMap: { [key: string]: number } = {
+      Basic: 1,
+      Intermediate: 2,
+      Expert: 3,
+    };
+
     // Prepare the attestation data
     const attestationPayload = {
       schemaId: clubId, 
       recipients: recipients, 
-      indexingValue: indexingValue,
+      indexingValue: indexingValueMap[attestationData.Level] || 0,
       data: {
         Title: attestationData.Title,
         Level: attestationData.Level 

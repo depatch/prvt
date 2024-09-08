@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { ethers } from 'ethers'
 import { useAuth } from '@/context/AuthContext'
-import { createProfileAttestation } from '@/utils/createProfileAttestation'
+// import { createProfileAttestation } from '@/utils/createProfileAttestation'
 import styles from '@/styles/complete-profile.module.css'
 import { fetchNFTs } from '@/utils/nftFetcher'
 
@@ -73,39 +73,60 @@ export default function CompleteProfile() {
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+    e.preventDefault();
     if (!username || !email || !bio) {
-      alert('Please fill in all required fields')
-      return
+      alert('Please fill in all required fields');
+      return;
     }
 
     try {
-      const attestation = await createProfileAttestation({
-        username,
-        email,
-        bio,
-        selectedNFT: selectedNFT?.id || undefined
-      })
+      // const attestation = await createProfileAttestation({
+      //   username,
+      //   email,
+      //   bio,
+      //   selectedNFT: selectedNFT?.id || undefined
+      // });
 
       if (provider) {
-        const signer = await provider.getSigner()
-        const address = await signer.getAddress()
-        await updateUserProfile({ 
-          username, 
-          email,
-          bio,
-          profilePicture: selectedNFT?.id || '',
-          isCompleteProfile: true,
-          attestationId: attestation.id,
-          address
-        })
-        router.push('/home')
+        const signer = await provider.getSigner();
+        const address = await signer.getAddress();
+        
+        // Save user data via API route
+        const response = await fetch('/api/complete-profile', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          // body: JSON.stringify({
+          //   address,
+          //   username,
+          //   email,
+          //   bio,
+          //   profilePicture: selectedNFT?.image || '',
+          //   attestationId: attestation.attestationId,
+          // }),
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to save profile data');
+        }
+
+        // await updateUserProfile({ 
+        //   username, 
+        //   email,
+        //   bio,
+        //   profilePicture: selectedNFT?.image || '',
+        //   isCompleteProfile: true,
+        //   attestationId: attestation.attestationId,
+        //   address
+        // });
+        router.push('/home');
       } else {
-        throw new Error('No wallet connected')
+        throw new Error('No wallet connected');
       }
     } catch (error) {
-      console.error('Failed to complete profile:', error)
-      alert('Failed to complete profile. Please try again.')
+      console.error('Failed to complete profile:', error);
+      alert('Failed to complete profile. Please try again.');
     }
   }
 

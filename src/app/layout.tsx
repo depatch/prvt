@@ -1,11 +1,20 @@
 'use client'
 
+import { Metadata } from 'next'
 import '../styles/globals.css'
 import { AuthProvider } from '../context/AuthContext';
 import { ReactNode } from 'react';
 import styles from '../styles/layout.module.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+
+export const metadata: Metadata = {
+  title: 'Your App Name',
+  description: 'Your app description',
+  icons: {
+    icon: '/favicon.ico',
+  },
+}
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (

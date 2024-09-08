@@ -1,4 +1,4 @@
-.connectButton {
+.ConnectWalletButton {
   display: flex;
   padding: var(--spacing-10, 10px) var(--spacing-12, 12px);
   justify-content: center;
@@ -20,11 +20,11 @@
 
 }
 
-.connectButton:hover {
+.ConnectWalletButton:hover {
   background-color: #374151;
 }
 
-.connectButton:disabled {
+.ConnectWalletButton:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }

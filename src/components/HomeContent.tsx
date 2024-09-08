@@ -7,11 +7,13 @@ import ChatList from './ChatList';
 import ChatWindow from './ChatWindow';
 import UserProfile from './UserProfile';
 import styles from '../styles/home.module.css';
+import { ClubCreatorConversation } from './ClubCreatorConversation';
 
 const HomeContent: React.FC = () => {
   const { isConnected, address, isInitialized, error } = useWeb3Auth();
   const [activeChat, setActiveChat] = useState<any>(null);
   const { xmtpClient, isLoading: isXmtpLoading, error: xmtpError } = useXmtp();
+  const [isCreatingClub, setIsCreatingClub] = useState(false);
 
   useEffect(() => {
     if (error) {
@@ -27,10 +29,18 @@ const HomeContent: React.FC = () => {
     return <div className={styles.notConnected}>Please connect your wallet to use the chat.</div>;
   }
 
+  const handleStartClubCreation = () => {
+    setIsCreatingClub(true);
+    setActiveChat(null);
+  };
+
   return (
     <div className={styles.content}>
       <aside className={styles.sidebar}>
         <UserProfile />
+        <button onClick={handleStartClubCreation} className={styles.createClubButton}>
+          Create a Club
+        </button>
         <ChatList setActiveChat={setActiveChat} />
       </aside>
       <main className={styles.mainContent}>
@@ -40,12 +50,14 @@ const HomeContent: React.FC = () => {
             <button className={styles.retryButton} onClick={() => window.location.reload()}>Retry</button>
           </div>
         ) : xmtpClient ? (
-          activeChat ? (
+          isCreatingClub ? (
+            <ClubCreatorConversation onClose={() => setIsCreatingClub(false)} />
+          ) : activeChat ? (
             <ChatWindow conversation={activeChat} />
           ) : (
             <div className={styles.welcomeMessage}>
               <h2>Welcome to PRVT Chat App</h2>
-              <p>Select a chat to get started or create a new conversation.</p>
+              <p>Select a chat to get started or create a new club.</p>
             </div>
           )
         ) : (

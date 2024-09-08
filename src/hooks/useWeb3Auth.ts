@@ -11,6 +11,7 @@ import {
   WalletConnectV2Adapter,
 } from "@web3auth/wallet-connect-v2-adapter";
 import { MetamaskAdapter } from "@web3auth/metamask-adapter";
+import { IBaseProvider } from "@web3auth/base";
 
 const clientId = process.env.NEXT_PUBLIC_WEB3AUTH_CLIENT_ID;
 
@@ -22,14 +23,10 @@ const chainConfig = {
   chainNamespace: CHAIN_NAMESPACES.EIP155,
   chainId: "0x1", // mainnet
   rpcTarget: "https://ethereum.blockpi.network/v1/rpc/public",
-  clientId: clientId,
-  sessionTime: 3600, // 1 hour in seconds
-  web3AuthNetwork: "sapphire_mainnet",
-  chainConfig: {
-    chainNamespace: CHAIN_NAMESPACES.EIP155,
-    chainId: "0x1",
-    rpcTarget: "https://rpc.ankr.com/eth",
-  }
+  displayName: "Ethereum Mainnet",
+  blockExplorer: "https://etherscan.io",
+  ticker: "ETH",
+  tickerName: "Ethereum",
 };
 
 export function useWeb3Auth() {
@@ -61,7 +58,7 @@ export function useWeb3Auth() {
         clientId: clientId || "",
         chainConfig,
         web3AuthNetwork: "sapphire_mainnet",
-        privateKeyProvider: new EthereumPrivateKeyProvider({ config: { chainConfig } })
+        privateKeyProvider: new EthereumPrivateKeyProvider({ config: { chainConfig } }) as IBaseProvider<string>
       });
 
       const metamaskAdapter = new MetamaskAdapter({ clientId });

@@ -31,12 +31,13 @@ export default function Home() {
   }
 
   return (
+
     <div className={styles.container}>
       <main className={styles.main}>
         <div className={styles.contentContainer}>
           <h1 className={styles.title}>Chat app with built-in privacy & a dApp store</h1>
           <div className={styles.tags}>
-            #chat #clubs #perks #easy-to-use #AI #on-chain
+            #chat  #clubs  #perks  #easy-to-use  #AI  #on-chain
           </div>
           <div className={styles.buttonContainer}>
             {!isConnected && (
@@ -53,20 +54,6 @@ export default function Home() {
               </Link>
             )}
           </div>
-        </div>
-        <div className={styles.illustration}>
-          <Image 
-            src="/svgs/illustration.svg"
-            alt="App illustration"
-            width={600}
-            height={600}
-            className={styles.illustrationSvg}
-            onError={(e) => {
-              console.error('Error loading SVG:', e);
-              const target = e.target as HTMLImageElement;
-              target.style.display = 'none';
-            }}
-          />
         </div>
       </main>
     </div>

@@ -1,5 +1,5 @@
 .body {
-  background: var(--background-button-primary-hover, #1F2228);
+  background: var(--background-button-primary-hover, #111316);
   display: flex;
   flex-direction: column;
   min-height: 100vh;

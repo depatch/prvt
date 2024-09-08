@@ -43,6 +43,7 @@ export const SchemaForm = () => {
       try {
         const createSchemaRes = await client.createSchema({
           name: schemaName,
+          Hook: '0x48Be60128bcb4fFae5C6A3b9AEf49FFf57497E85',
           data: [{ 
             name: "Title", 
             type: "string" 

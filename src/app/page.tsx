@@ -7,8 +7,6 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Button } from "@/components/ui/button"
 import { ConnectWalletButton } from "@/components/ConnectWalletButton"
-import { QueryClub } from '@/components/QueryClub'
-import { QueryUser } from '@/components/QueryUser'
 
 function ErrorFallback({ error }: { error: Error }) {
   return (
@@ -59,10 +57,6 @@ export default function Home() {
               >
                 Learn More
               </Button>
-<<<<<<< HEAD
-=======
-              <QueryUser/>
->>>>>>> signprotocol
             </div>
             <div className="flex items-center mb-2">
               {[...Array(5)].map((_, i) => (

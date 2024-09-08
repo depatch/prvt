@@ -15,7 +15,6 @@ export default function ChatList({ setActiveChat }: ChatListProps) {
     const loadConversations = async () => {
       if (xmtpClient) {
         const convos = await xmtpClient.conversations.list()
-        console.log(convos)
         setConversations(convos)
       }
     }
@@ -23,9 +22,8 @@ export default function ChatList({ setActiveChat }: ChatListProps) {
   }, [xmtpClient])
 
   const handleConversationCreated = (newConversation: any) => {
-    setConversations([...conversations, newConversation])
+    setConversations(prevConversations => [...prevConversations, newConversation])
     setActiveChat(newConversation)
-    console.log(newConversation)
   }
 
   return (
@@ -34,7 +32,7 @@ export default function ChatList({ setActiveChat }: ChatListProps) {
       <NewConversation onConversationCreated={handleConversationCreated}/>
       {conversations.length === 0 ? (
         <div className={styles.emptyState}>
-          You don't have any chats yet
+          You don't have any chats yet. Start a new conversation!
         </div>
       ) : (
         <div className={styles.conversations}>
@@ -43,15 +41,13 @@ export default function ChatList({ setActiveChat }: ChatListProps) {
               key={conversation.peerAddress}
               className={styles.conversationItem}
               onClick={() => setActiveChat(conversation)}
-              style={{
-                borderRadius: '12px',
-                border: '1px solid var(--border-action-normal, rgba(255, 255, 255, 0.18))',
-                background: 'var(--background-surface-default, #0B0C0E)',
-                boxShadow: '0px 1px 2px 0px rgba(20, 21, 26, 0.05)'
-              }}
             >
               <div className={styles.peerAddress}>
                 {conversation.peerAddress.slice(0, 6)}...{conversation.peerAddress.slice(-4)}
+              </div>
+              <div className={styles.lastMessage}>
+                {/* You might want to fetch and display the last message here */}
+                Last message preview...
               </div>
             </div>
           ))}

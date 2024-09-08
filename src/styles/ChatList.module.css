@@ -1,40 +1,48 @@
 .chatList {
-  width: 100%;
-  overflow-y: hidden;
+  padding: 1rem;
+}
+
+.chatList h2 {
+  color: var(--text-default, #FFFFFF);
+  margin-bottom: 1rem;
 }
 
 .emptyState {
-  padding: 20px;
+  color: var(--text-secondary, #A0A3BD);
   text-align: center;
-  color: #888;
+  padding: 2rem 0;
 }
 
 .conversations {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  overflow-y: auto;
-  scrollbar-width: none;  /* For Firefox */
-  -ms-overflow-style: none;  /* For Internet Explorer and Edge */
-}
-
-.conversations::-webkit-scrollbar {
-  display: none;  /* For Chrome, Safari, and Opera */
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .conversationItem {
-  padding: 10px;
-  border-bottom: 1px solid #eee;
+  padding: 0.75rem;
+  background-color: var(--background-surface-default, #0B0C0E);
+  border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
 .conversationItem:hover {
-  background-color: #f5f5f5;
+  background-color: var(--background-surface-elevated, #1F2228);
 }
 
 .peerAddress {
-  font-size: 14px;
-  color: #333;
+  color: var(--text-default, #FFFFFF);
+  font-weight: bold;
+}
+
+.lastMessage {
+  color: var(--text-secondary, #A0A3BD);
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Add more styles for chat list items */

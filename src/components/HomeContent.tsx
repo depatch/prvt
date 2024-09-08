@@ -3,29 +3,15 @@
 import React, { useState, useEffect } from 'react';
 import { useWeb3Auth } from '../hooks/useWeb3Auth';
 import { useXmtp } from '../hooks/useXMTP';
-import useGaladriel from '../hooks/useGaladriel';
 import ChatList from './ChatList';
 import ChatWindow from './ChatWindow';
-import ClubFinderAgent from './ClubFinderAgent';
-import ClubCreatorAgent from './ClubCreatorAgent';
-import ClubList from './ClubList';
 import UserProfile from './UserProfile';
 import styles from '../styles/home.module.css';
 
 const HomeContent: React.FC = () => {
-  const { isConnected, address, provider, isInitialized, error } = useWeb3Auth();
-  const { messages, sendMessage, chatId } = useGaladriel();
+  const { isConnected, address, isInitialized, error } = useWeb3Auth();
   const [activeChat, setActiveChat] = useState<any>(null);
-  const [activeAgent, setActiveAgent] = useState<string | null>(null);
-  const [isXmtpInitializing, setIsXmtpInitializing] = useState(true);
-
-  const { xmtpClient, canMessage, isLoading: isXmtpLoading, error: xmtpError } = useXmtp();
-
-  useEffect(() => {
-    if (!isXmtpLoading && (xmtpClient || xmtpError)) {
-      setIsXmtpInitializing(false);
-    }
-  }, [isXmtpLoading, xmtpClient, xmtpError]);
+  const { xmtpClient, isLoading: isXmtpLoading, error: xmtpError } = useXmtp();
 
   useEffect(() => {
     if (error) {
@@ -33,55 +19,35 @@ const HomeContent: React.FC = () => {
     }
   }, [error]);
 
-  if (!isInitialized) {
+  if (!isInitialized || isXmtpLoading) {
     return <div className={styles.loading}>Loading...</div>;
+  }
+
+  if (!isConnected) {
+    return <div className={styles.notConnected}>Please connect your wallet to use the chat.</div>;
   }
 
   return (
     <div className={styles.content}>
-      <aside className={styles.sidebar} style={{
-        borderRadius: 'var(--radius-2xl, 16px)',
-        background: 'var(--background-surface-default, #0B0C0E)'
-      }}>
+      <aside className={styles.sidebar}>
         <UserProfile />
         <ChatList setActiveChat={setActiveChat} />
-        <ClubList />
-        <div className={styles.agentButtons}>
-          <button className={styles.agentButton} onClick={() => setActiveAgent('finder')}>
-            <span className={styles.emoji}>🔍</span> Club finder agent
-          </button>
-          <button className={styles.agentButton} onClick={() => setActiveAgent('creator')}>
-            <span className={styles.emoji}>🛠️</span> Club creator agent
-          </button>
-        </div>
       </aside>
-      <main className={styles.mainContent} style={{
-        borderRadius: 'var(--radius-2xl, 16px)',
-        background: 'var(--background-surface-default, #0B0C0E)',
-        flex: '1',
-        display: 'flex',
-        flexDirection: 'column',
-        overflow: 'hidden'
-      }}>
-        {isXmtpInitializing ? (
-          <p className={styles.loadingText}>Initializing XMTP client...</p>
-        ) : xmtpError ? (
+      <main className={styles.mainContent}>
+        {xmtpError ? (
           <div className={styles.errorContainer}>
             <p className={styles.errorText}>Error: {xmtpError}</p>
             <button className={styles.retryButton} onClick={() => window.location.reload()}>Retry</button>
           </div>
         ) : xmtpClient ? (
-          <>
-            {activeChat && <ChatWindow conversation={activeChat} />}
-            {activeAgent === 'finder' && <ClubFinderAgent />}
-            {activeAgent === 'creator' && <ClubCreatorAgent />}
-            {!activeChat && !activeAgent && (
-              <div className={styles.welcomeMessage}>
-                <h2>Welcome to PRVT Chat App</h2>
-                <p>Select a chat or use an agent to get started.</p>
-              </div>
-            )}
-          </>
+          activeChat ? (
+            <ChatWindow conversation={activeChat} />
+          ) : (
+            <div className={styles.welcomeMessage}>
+              <h2>Welcome to PRVT Chat App</h2>
+              <p>Select a chat to get started or create a new conversation.</p>
+            </div>
+          )
         ) : (
           <p className={styles.errorText}>Failed to initialize XMTP client. Please check your connection and try again.</p>
         )}
